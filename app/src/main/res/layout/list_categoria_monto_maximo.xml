@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv5"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:animateLayoutChanges="true"
+    android:outlineAmbientShadowColor="#000000"
+    android:outlineProvider="paddedBounds"
+    android:outlineSpotShadowColor="#000000"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/categoria_titulo_text"
+                android:layout_width="229dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="30dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lekton"
+                android:gravity="center"
+                android:text="Entretenimiento"
+                android:textAlignment="viewStart"
+                android:textColor="#645CAA"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="100dp"
+                android:layout_height="53dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                app:boxStrokeWidth="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/categoria_titulo_text"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/categoria_monto_maximo_TextEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/lekton"
+                    android:gravity="center"
+                    android:hint="$0"
+                    android:textColor="#645CA9"
+                    android:textColorHighlight="#645CA9"
+                    android:textColorHint="#645CA9"
+                    android:textColorLink="#645CA8"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+
