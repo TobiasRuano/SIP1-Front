@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv5"
+    android:layout_width="match_parent"
+    android:layout_height="460dp"
+    android:animateLayoutChanges="true"
+    android:backgroundTintMode="src_atop"
+    android:clipChildren="true"
+    android:clipToPadding="true"
+    android:outlineAmbientShadowColor="#000000"
+    android:outlineProvider="paddedBounds"
+    android:outlineSpotShadowColor="#000000"
+    app:cardBackgroundColor="#645CAA"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="clip_horizontal"
+        android:background="@drawable/layout_border"
+        android:backgroundTint="#FF0000"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:foregroundGravity="clip_vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/status_cargo_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/layout_border"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/titulo_detalle_cargo"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="27dp"
+                android:fontFamily="@font/lekton"
+                android:text="Netflix"
+                android:textAlignment="center"
+                android:textColor="#645CAA"
+                android:textSize="42dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/categoria_detalle_cargo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="27dp"
+                android:fontFamily="@font/lekton"
+                android:text="Entretenimiento"
+                android:textAlignment="center"
+                android:textColor="#645CAA"
+                android:textSize="26dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titulo_detalle_cargo" />
+
+            <TextView
+                android:id="@+id/monto_detalle_cargo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="27dp"
+                android:fontFamily="@font/lekton"
+                android:text="$ 1423,00"
+                android:textAlignment="center"
+                android:textColor="#645CAA"
+                android:textSize="54dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoria_detalle_cargo" />
+
+            <TextView
+                android:id="@+id/fecha_detalle_cargo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="27dp"
+                android:layout_marginBottom="53dp"
+                android:fontFamily="@font/lekton"
+                android:text="Próximo pago: 23/10/2022"
+                android:textAlignment="center"
+                android:textColor="#645CAA"
+                android:textSize="26dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monto_detalle_cargo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
+
