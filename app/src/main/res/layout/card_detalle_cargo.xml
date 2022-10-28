@@ -21,8 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="clip_horizontal"
-        android:background="@drawable/layout_border"
-        android:backgroundTint="#FF0000"
+        android:background="@drawable/layout_border_green"
         android:clipChildren="true"
         android:clipToPadding="true"
         android:foregroundGravity="clip_vertical">
