@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,7 +25,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     Button createNewExpenseButton;
     RecyclerView recyclerView;
-    View monthlyExpense;
+    TextView montoMensualTextView;
     CargoHomeAdapter adapter;
 
     List<Expense> expenses = new ArrayList<>();
@@ -43,13 +44,28 @@ public class HomeFragment extends Fragment {
     private void configureUI() {
         createNewExpenseButton = (Button) binding.getRoot().findViewById(R.id.nuevo_cargo_button);
         recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
-        monthlyExpense = (View) binding.getRoot().findViewById(R.id.monto_mensual_header_view);
+        montoMensualTextView = (TextView) binding.getRoot().findViewById(R.id.valor_monto_mensual);
+
         adapter = new CargoHomeAdapter(getContext(), expenses);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         adapter.setItems(expenses);
+
+        Double totalAmount = calculateMonthlyAmount(expenses);
+        String totalAmountString = String.format("$ %f", totalAmount);
+        montoMensualTextView.setText(totalAmountString);
+    }
+
+    private Double calculateMonthlyAmount(List<Expense> expenses) {
+        Double total = 0.0;
+
+        for (int i = 0; i < expenses.size(); i ++) {
+            total += expenses.get(i).getAmount();
+        }
+
+        return total;
     }
 
     @Override
