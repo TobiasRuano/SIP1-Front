@@ -56,6 +56,13 @@ public class HomeFragment extends Fragment {
         Double totalAmount = calculateMonthlyAmount(expenses);
         String totalAmountString = String.format("$ %f", totalAmount);
         montoMensualTextView.setText(totalAmountString);
+
+        createNewExpenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: Aca presentamos la pantalla de nuevo cargo
+            }
+        });
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {
