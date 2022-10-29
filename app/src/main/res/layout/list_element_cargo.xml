@@ -6,7 +6,7 @@
     android:layout_height="140dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv5"
+        android:id="@+id/cv_element_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/list_element_color_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/layout_border_green"
@@ -52,7 +53,7 @@
                     tools:ignore="NotSibling">
 
                     <TextView
-                        android:id="@+id/descripcionTextView2"
+                        android:id="@+id/title_element_list_cargo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -64,7 +65,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/descripcionBreveTextView2"
+                        android:id="@+id/category_list_element_cargo"
                         android:layout_width="238dp"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -96,7 +97,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/fechaTextView2"
+                            android:id="@+id/nextChargeDate_element_list"
                             android:layout_width="170dp"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="6dp"
@@ -120,7 +121,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/monedaActualTextView2"
+                        android:id="@+id/precio_list_element_cargo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/lekton"
