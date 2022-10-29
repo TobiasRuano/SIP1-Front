@@ -5,15 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.CargoHomeAdapter;
 import com.example.sip1.R;
 import com.example.sip1.databinding.FragmentHomeBinding;
+import com.example.sip1.models.Expense;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +23,14 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     Button createNewExpenseButton;
-    RecyclerView expenseList;
+    RecyclerView recyclerView;
     View monthlyExpense;
+    CargoHomeAdapter adapter;
 
-    List<String> expenses = new ArrayList<>();
+    List<Expense> expenses = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -41,9 +42,14 @@ public class HomeFragment extends Fragment {
 
     private void configureUI() {
         createNewExpenseButton = (Button) binding.getRoot().findViewById(R.id.nuevo_cargo_button);
-        expenseList = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
+        recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
         monthlyExpense = (View) binding.getRoot().findViewById(R.id.monto_mensual_header_view);
+        adapter = new CargoHomeAdapter(getContext(), expenses);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
 
+        adapter.setItems(expenses);
     }
 
     @Override
