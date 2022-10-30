@@ -124,11 +124,12 @@
 
                     <TextView
                         android:id="@+id/precio_list_element_cargo"
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:fontFamily="@font/lekton"
                         android:gravity="center"
+                        android:lines="1"
                         android:orientation="vertical"
                         android:padding="10dp"
                         android:text="$1423"

@@ -48,7 +48,7 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         holder.title.setText(currentExpense.getName());
         holder.category.setText(currentExpense.getCategory());
-        String totalAmountString = String.format("$ %.2f", currentExpense.getAmount());
+        String totalAmountString = String.format("$%.2f", currentExpense.getAmount());
         holder.amount.setText(totalAmountString);
         // TODO: formatear la fecha de vencimiento
         String fechaVencimiento = calculateNextChargDate(currentExpense.getFirstChargeDate()).toString();
@@ -79,6 +79,9 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
             private void deleteService(Expense expense) {
                 // Eliminar el servicio
+                expenses.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,expenses.size());
                 System.out.println("Se elimino un elemento de la tabla");
             }
         });

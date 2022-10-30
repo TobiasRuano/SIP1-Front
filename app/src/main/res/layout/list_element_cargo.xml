@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="140dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_element_list"
+        android:id="@+id/cv5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -22,7 +22,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/list_element_color_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/layout_border_green"
@@ -47,15 +46,13 @@
                     android:layout_width="273dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="2dp"
                     android:orientation="vertical"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                    android:padding="10dp"
                     tools:ignore="NotSibling">
 
                     <TextView
-                        android:id="@+id/title_element_list_cargo"
+                        android:id="@+id/descripcionTextView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -63,11 +60,11 @@
                         android:maxLines="1"
                         android:text="Netflix"
                         android:textColor="#645CAA"
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/category_list_element_cargo"
+                        android:id="@+id/descripcionBreveTextView2"
                         android:layout_width="238dp"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -75,7 +72,7 @@
                         android:maxLines="2"
                         android:text="Entretenimiento"
                         android:textColor="#645CA9"
-                        android:textSize="10sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -95,22 +92,22 @@
                             android:orientation="vertical"
                             android:text="Fch. Vto:"
                             android:textColor="#645CA8"
-                            android:textSize="13sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/nextChargeDate_element_list"
+                            android:id="@+id/fechaTextView2"
                             android:layout_width="170dp"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="6dp"
                             android:layout_marginRight="6dp"
                             android:layout_marginBottom="-5dp"
                             android:fontFamily="@font/lekton"
-                            android:gravity="center"
                             android:orientation="vertical"
                             android:text="23/10/2022"
+                            android:textAlignment="viewStart"
                             android:textColor="#6E66AD"
-                            android:textSize="13sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -123,14 +120,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/precio_list_element_cargo"
-                        android:layout_width="102dp"
+                        android:id="@+id/monedaActualTextView2"
+                        android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:layout_gravity="end"
                         android:fontFamily="@font/lekton"
                         android:gravity="center"
+                        android:lines="1"
                         android:orientation="vertical"
-                        android:padding="10dp"
                         android:text="$1423"
                         android:textAlignment="center"
                         android:textColor="#645CA9"

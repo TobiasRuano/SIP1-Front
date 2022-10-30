@@ -72,7 +72,7 @@
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="140dp"
         android:background="@drawable/layout_left_rounded"
         android:backgroundTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,7 +89,7 @@
         android:backgroundTint="#FFFFFF"
         android:shadowDy="4"
         android:shadowRadius="4"
-        android:text="Nuevo Gasto"
+        android:text="Nuevo Gasto Recurrente"
         android:textColor="#645CA9"
         app:cornerRadius="50dp"
         app:iconTint="#FFFFFF"
