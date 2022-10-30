@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cv5"
+    android:id="@+id/cv_element_list"
     android:layout_width="match_parent"
     android:layout_height="460dp"
     android:animateLayoutChanges="true"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/titulo_detalle_cargo"
+                android:id="@+id/txt_detalle_titulo_cargo"
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
                 android:layout_marginStart="27dp"
@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/categoria_detalle_cargo"
+                android:id="@+id/txt_detalle_categoria_cargo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
@@ -70,10 +70,10 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titulo_detalle_cargo" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalle_titulo_cargo" />
 
             <TextView
-                android:id="@+id/monto_detalle_cargo"
+                android:id="@+id/txt_detalle_monto_cargo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
@@ -87,10 +87,10 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoria_detalle_cargo" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalle_categoria_cargo" />
 
             <TextView
-                android:id="@+id/fecha_detalle_cargo"
+                android:id="@+id/lbl_detalle_proximo_pago"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
@@ -105,7 +105,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/monto_detalle_cargo" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalle_monto_cargo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
