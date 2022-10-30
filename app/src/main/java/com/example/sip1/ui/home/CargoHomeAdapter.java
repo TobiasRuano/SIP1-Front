@@ -3,6 +3,7 @@ package com.example.sip1.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.DetalleCargo;
 import com.example.sip1.R;
 import com.example.sip1.models.Expense;
 
@@ -91,7 +93,13 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Se apreto un elemento de la tabla");
+                Intent intent = new Intent(context.getApplicationContext(), DetalleCargo.class);
+                intent.putExtra("cargo_elemento", expenses.get(position));
+                intent.putExtra("amount_elemento", holder.amount.getText());
+                intent.putExtra("fechaCargo_elemento", holder.nextChargeDate.getText());
+                intent.putExtra("backgroundColor", holder.type);
+
+                context.startActivity(intent);
             }
         });
     }
@@ -133,10 +141,13 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         if (days <= 5) {
             holder.colorLayout.setBackgroundResource(R.drawable.layout_border_red);
+            holder.type = 0;
         } else if (days < 15) {
             holder.colorLayout.setBackgroundResource(R.drawable.layout_border_yellow);
+            holder.type = 1;
         } else {
             holder.colorLayout.setBackgroundResource(R.drawable.layout_border_green);
+            holder.type = 2;
         }
     }
 
@@ -152,6 +163,7 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
         TextView category;
         TextView nextChargeDate;
         TextView amount;
+        int type;
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -161,6 +173,8 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
             category = itemView.findViewById(R.id.category_list_element_cargo);
             nextChargeDate = itemView.findViewById(R.id.nextChargeDate_element_list);
             amount = itemView.findViewById(R.id.precio_list_element_cargo);
+
+            type = 0;
         }
     }
 
