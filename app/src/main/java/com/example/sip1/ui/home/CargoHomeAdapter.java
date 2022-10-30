@@ -1,4 +1,4 @@
-package com.example.sip1;
+package com.example.sip1.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,16 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.R;
 import com.example.sip1.models.Expense;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -48,7 +48,13 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         holder.title.setText(currentExpense.getName());
         holder.category.setText(currentExpense.getCategory());
-        //holder.amount.setText(currentExpense.getAmount());
+        String totalAmountString = String.format("$%.2f", currentExpense.getAmount());
+        holder.amount.setText(totalAmountString);
+
+        Date fechaVencimiento = calculateNextChargDate(currentExpense.getFirstChargeDate());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(fechaVencimiento);
+        holder.nextChargeDate.setText(strDate);
 
         selectCardColor(holder, calculateNextChargDate(currentExpense.getFirstChargeDate()));
 
@@ -75,6 +81,9 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
             private void deleteService(Expense expense) {
                 // Eliminar el servicio
+                expenses.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,expenses.size());
                 System.out.println("Se elimino un elemento de la tabla");
             }
         });
@@ -98,13 +107,13 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
         int dateComparison = today.compareTo(first);
         if (dateComparison == 0) {
             return today;
-        } else if (dateComparison > 0) {
+        } else if (dateComparison < 0) {
             return first;
         } else {
             Date returnDate = first;
 
             while (dateComparison < 0) {
-                GregorianCalendar calendar =new GregorianCalendar();
+                GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(first);
                 calendar.add(Calendar.MONTH , 1);
 
@@ -120,14 +129,14 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
     // Aca es donde se cambia el color dependiendo de la cercania de la fecha del cargo
     private void selectCardColor(CardViewHolder holder, Date nextChargeDate) {
         Date today = new Date();
-        long days = getDateDiff(nextChargeDate, today, TimeUnit.DAYS);
+        long days = getDateDiff(today, nextChargeDate, TimeUnit.DAYS);
 
         if (days <= 5) {
-            holder.colorLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.layout_border_red));
+            holder.colorLayout.setBackgroundResource(R.drawable.layout_border_red);
         } else if (days < 15) {
-            holder.colorLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.layout_border_yellow));
+            holder.colorLayout.setBackgroundResource(R.drawable.layout_border_yellow);
         } else {
-            holder.colorLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.layout_border_green));
+            holder.colorLayout.setBackgroundResource(R.drawable.layout_border_green);
         }
     }
 
