@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sip1.CargoHomeAdapter;
 import com.example.sip1.R;
 import com.example.sip1.databinding.FragmentHomeBinding;
 import com.example.sip1.models.Expense;

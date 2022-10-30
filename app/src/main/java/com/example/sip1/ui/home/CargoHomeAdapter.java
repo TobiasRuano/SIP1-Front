@@ -1,4 +1,4 @@
-package com.example.sip1;
+package com.example.sip1.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,16 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.R;
 import com.example.sip1.models.Expense;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -50,9 +50,11 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
         holder.category.setText(currentExpense.getCategory());
         String totalAmountString = String.format("$%.2f", currentExpense.getAmount());
         holder.amount.setText(totalAmountString);
-        // TODO: formatear la fecha de vencimiento
-        String fechaVencimiento = calculateNextChargDate(currentExpense.getFirstChargeDate()).toString();
-        holder.nextChargeDate.setText(fechaVencimiento);
+
+        Date fechaVencimiento = calculateNextChargDate(currentExpense.getFirstChargeDate());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(fechaVencimiento);
+        holder.nextChargeDate.setText(strDate);
 
         selectCardColor(holder, calculateNextChargDate(currentExpense.getFirstChargeDate()));
 

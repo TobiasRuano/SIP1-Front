@@ -106,7 +106,6 @@
                             android:layout_marginRight="6dp"
                             android:layout_marginBottom="-5dp"
                             android:fontFamily="@font/lekton"
-                            android:gravity="center"
                             android:orientation="vertical"
                             android:text="23/10/2022"
                             android:textColor="#6E66AD"
