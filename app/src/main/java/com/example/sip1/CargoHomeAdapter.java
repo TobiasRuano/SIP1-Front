@@ -48,7 +48,11 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         holder.title.setText(currentExpense.getName());
         holder.category.setText(currentExpense.getCategory());
-        //holder.amount.setText(currentExpense.getAmount());
+        String totalAmountString = String.format("$ %.2f", currentExpense.getAmount());
+        holder.amount.setText(totalAmountString);
+        // TODO: formatear la fecha de vencimiento
+        String fechaVencimiento = calculateNextChargDate(currentExpense.getFirstChargeDate()).toString();
+        holder.nextChargeDate.setText(fechaVencimiento);
 
         selectCardColor(holder, calculateNextChargDate(currentExpense.getFirstChargeDate()));
 
@@ -98,13 +102,13 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
         int dateComparison = today.compareTo(first);
         if (dateComparison == 0) {
             return today;
-        } else if (dateComparison > 0) {
+        } else if (dateComparison < 0) {
             return first;
         } else {
             Date returnDate = first;
 
             while (dateComparison < 0) {
-                GregorianCalendar calendar =new GregorianCalendar();
+                GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(first);
                 calendar.add(Calendar.MONTH , 1);
 
@@ -120,14 +124,14 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
     // Aca es donde se cambia el color dependiendo de la cercania de la fecha del cargo
     private void selectCardColor(CardViewHolder holder, Date nextChargeDate) {
         Date today = new Date();
-        long days = getDateDiff(nextChargeDate, today, TimeUnit.DAYS);
+        long days = getDateDiff(today, nextChargeDate, TimeUnit.DAYS);
 
         if (days <= 5) {
-            holder.colorLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.layout_border_red));
+            holder.colorLayout.setBackgroundResource(R.drawable.layout_border_red);
         } else if (days < 15) {
-            holder.colorLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.layout_border_yellow));
+            holder.colorLayout.setBackgroundResource(R.drawable.layout_border_yellow);
         } else {
-            holder.colorLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.layout_border_green));
+            holder.colorLayout.setBackgroundResource(R.drawable.layout_border_green);
         }
     }
 
