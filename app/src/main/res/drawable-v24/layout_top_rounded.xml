@@ -8,9 +8,8 @@
     </item>
     <item>
         <shape>
-            <solid android:color="#02BB2A"/>
-            <stroke android:width="2dip" android:color="#645CAA" />
-            <corners android:radius="10dp"/>
+            <solid android:color="#645CAA"/>
+            <corners android:topLeftRadius="90dp" android:topRightRadius="90dp"/>
             <padding android:left="0dip" android:top="0dip" android:right="0dip" android:bottom="0dip" />
         </shape>
     </item>
