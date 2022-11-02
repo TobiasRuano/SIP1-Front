@@ -167,7 +167,7 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
-            card = itemView.findViewById(R.id.cv_element_list);
+            card = itemView.findViewById(R.id.list_onboarding_entretenimiento);
             colorLayout = itemView.findViewById(R.id.list_element_color_layout);
             title = itemView.findViewById(R.id.title_element_list_cargo);
             category = itemView.findViewById(R.id.category_list_element_cargo);
