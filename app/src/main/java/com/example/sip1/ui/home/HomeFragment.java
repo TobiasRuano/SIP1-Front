@@ -77,19 +77,19 @@ public class HomeFragment extends Fragment {
     }
 
     private void createMockExpenses() {
-        Expense expense1 = new Expense(1, "Netflix", 1550.25, new Date(), null, "Entretenimiento");
+        Expense expense1 = new Expense("Netflix", 1550.25, new Date(), "Entretenimiento");
         expenses.add(expense1);
 
         Date expense2Date = new GregorianCalendar(2022, Calendar.NOVEMBER, 10).getTime();
-        Expense expense2 = new Expense(1, "Spotify", 325.0, expense2Date, null, "Entretenimiento");
+        Expense expense2 = new Expense("Spotify", 325.0, expense2Date, "Entretenimiento");
         expenses.add(expense2);
 
         Date expense3Date = new GregorianCalendar(2022, Calendar.NOVEMBER, 30).getTime();
-        Expense expense3 = new Expense(1, "Disney+", 356.0, expense3Date, null, "Entretenimiento");
+        Expense expense3 = new Expense("Disney+", 356.0, expense3Date, "Entretenimiento");
         expenses.add(expense3);
 
         Date expense4Date = new GregorianCalendar(2022, Calendar.OCTOBER, 31).getTime();
-        Expense expense4 = new Expense(1, "Paramount+", 750.0, expense4Date, null, "Entretenimiento");
+        Expense expense4 = new Expense("Paramount+", 750.0, expense4Date, "Entretenimiento");
         expenses.add(expense4);
     }
 
