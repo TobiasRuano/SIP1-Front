@@ -4,28 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Expense implements Serializable {
-    private int id;
     private String name;
     private Double amount;
-    private Date firstChargeDate;
-    private Date lastChargeDate;
+    private Date nextChargeDate;
     private String category;
 
-    public Expense(int id, String name, Double amount, Date firstChargeDate, Date lastChargeDate, String category) {
-        this.id = id;
+    public Expense(String name, Double amount, Date nextChargeDate, String category) {
         this.name = name;
         this.amount = amount;
-        this.firstChargeDate = firstChargeDate;
-        this.lastChargeDate = lastChargeDate;
+        this.nextChargeDate = nextChargeDate;
         this.category = category;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,20 +32,12 @@ public class Expense implements Serializable {
         this.amount = amount;
     }
 
-    public Date getFirstChargeDate() {
-        return firstChargeDate;
+    public Date getNextChargeDate() {
+        return nextChargeDate;
     }
 
-    public void setFirstChargeDate(Date firstChargeDate) {
-        this.firstChargeDate = firstChargeDate;
-    }
-
-    public Date getLastChargeDate() {
-        return lastChargeDate;
-    }
-
-    public void setLastChargeDate(Date lastChargeDate) {
-        this.lastChargeDate = lastChargeDate;
+    public void setNextChargeDate(Date nextChargeDate) {
+        this.nextChargeDate = nextChargeDate;
     }
 
     public String getCategory() {

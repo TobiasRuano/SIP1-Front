@@ -35,6 +35,9 @@ public class NuevoGasto extends AppCompatActivity {
         agregarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Valido los datos para crear el Expense
+
+
                 //Formateo las fechas para poder pasarlas y crear Expense
                 SimpleDateFormat formatter = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -42,8 +45,7 @@ public class NuevoGasto extends AppCompatActivity {
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     try {
-                        expense = new Expense(1, textViewNombre.getText().toString(), Double.parseDouble(textViewMonto.getText().toString()),
-                                formatter.parse(textViewFechaProximoPago.getText().toString()),
+                        expense = new Expense(textViewNombre.getText().toString(), Double.parseDouble(textViewMonto.getText().toString()),
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),
                                     textViewCategoria.getText().toString());
                     } catch (ParseException e) {

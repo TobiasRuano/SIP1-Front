@@ -53,12 +53,12 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
         String totalAmountString = String.format("$%.2f", currentExpense.getAmount());
         holder.amount.setText(totalAmountString);
 
-        Date fechaVencimiento = calculateNextChargDate(currentExpense.getFirstChargeDate());
+        Date fechaVencimiento = calculateNextChargDate(currentExpense.getNextChargeDate());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(fechaVencimiento);
         holder.nextChargeDate.setText(strDate);
 
-        selectCardColor(holder, calculateNextChargDate(currentExpense.getFirstChargeDate()));
+        selectCardColor(holder, calculateNextChargDate(currentExpense.getNextChargeDate()));
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
