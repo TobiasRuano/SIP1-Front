@@ -1,5 +1,7 @@
 package com.example.sip1.ui.home;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,11 +10,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
 import com.example.sip1.databinding.FragmentHomeBinding;
 import com.example.sip1.models.Expense;
@@ -32,6 +38,15 @@ public class HomeFragment extends Fragment {
     CargoHomeAdapter adapter;
 
     List<Expense> expenses = new ArrayList<>();
+
+    ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            if (result.getData() != null) {
+                Expense expense = (Expense) result.getData().getSerializableExtra("newExpense");
+                addNewExpense(expense);
+            }
+        }
+    });
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,9 +78,17 @@ public class HomeFragment extends Fragment {
         createNewExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Aca presentamos la pantalla de nuevo cargo
+                // TODO: Aca presentamos la pantalla de nuevo cargos
+                Intent intent = new Intent(getContext(), NuevoGasto.class);
+
+                mGetContent.launch(intent);
             }
         });
+    }
+
+    public void addNewExpense(Expense expense) {
+        expenses.add(expense);
+        adapter.setItems(expenses);
     }
 
     private void createMockExpenses() {
