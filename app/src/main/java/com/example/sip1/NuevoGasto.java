@@ -41,19 +41,20 @@ public class NuevoGasto extends AppCompatActivity {
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     try {
-                        expense = new Expense(1, textViewNombre.toString(), Double.parseDouble(textViewMonto.toString()),
-                                formatter.parse(textViewFechaProximoPago.toString()),
-                                formatter.parse(textViewFechaProximoPago.toString()),
-                                    textViewCategoria.toString());
+                        expense = new Expense(1, textViewNombre.getText().toString(), Double.parseDouble(textViewMonto.getText().toString()),
+                                formatter.parse(textViewFechaProximoPago.getText().toString()),
+                                formatter.parse(textViewFechaProximoPago.getText().toString()),
+                                    textViewCategoria.getText().toString());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 }
 
                 //Salto a Home y paso el objeto expense
-                Intent intent = new Intent(NuevoGasto.this, HomeFragment.class);
-                intent.putExtra("extra", expense);
-                startActivity(intent);
+                Intent intent = new Intent(NuevoGasto.this, MainActivity.class);
+                intent.putExtra("newExpense", expense);
+                setResult(0, intent);
+                finish();
             }
         });
     }

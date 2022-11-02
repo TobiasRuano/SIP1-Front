@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
 import com.example.sip1.databinding.FragmentHomeBinding;
 import com.example.sip1.models.Expense;
@@ -63,9 +64,16 @@ public class HomeFragment extends Fragment {
         createNewExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Aca presentamos la pantalla de nuevo cargo
+                // TODO: Aca presentamos la pantalla de nuevo cargos
+                Intent intent = new Intent(getContext(), NuevoGasto.class);
+                getActivity().startActivityForResult(intent, 0);
             }
         });
+    }
+
+    public void addNewExpense(Expense expense) {
+        expenses.add(expense);
+        adapter.setItems(expenses);
     }
 
     private void createMockExpenses() {

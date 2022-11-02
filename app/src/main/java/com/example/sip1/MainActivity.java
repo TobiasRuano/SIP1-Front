@@ -1,13 +1,17 @@
 package com.example.sip1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.sip1.models.Expense;
+import com.example.sip1.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.ActionBar;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -59,5 +63,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 0) {
+            Expense expense = (Expense) data.getSerializableExtra("newExpense");
+
+        }
     }
 }
