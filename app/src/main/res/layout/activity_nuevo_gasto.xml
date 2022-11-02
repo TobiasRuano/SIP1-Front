@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     tools:context=".NuevoGasto">
 
     <View
@@ -19,10 +20,12 @@
 
     <EditText
         android:id="@+id/idTextCategoria"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Categoria*"
@@ -35,10 +38,12 @@
 
     <EditText
         android:id="@+id/idTextNombre"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
-        android:background="@android:color/white"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Nombre*"
@@ -51,10 +56,12 @@
 
     <EditText
         android:id="@+id/idTextTipoDeCargo"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Tipo de cargo*"
@@ -67,10 +74,12 @@
 
     <EditText
         android:id="@+id/idTextDetalle"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="70dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Detalle*"
@@ -83,10 +92,12 @@
 
     <EditText
         android:id="@+id/idTextLinkDeCancelacion"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Link de cancelacion*"
@@ -99,10 +110,12 @@
 
     <EditText
         android:id="@+id/idTextMonto"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Monto*"
@@ -148,10 +161,12 @@
 
     <EditText
         android:id="@+id/idDateFechaProximoPago"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Fecha Proximo Pago"

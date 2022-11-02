@@ -70,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == 0) {
-            Expense expense = (Expense) data.getSerializableExtra("newExpense");
-
+            if (data != null) {
+                Expense expense = (Expense) data.getSerializableExtra("newExpense");
+            }
         }
     }
 }
