@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OnboardingSecond">
+
+    <TextView
+        android:id="@+id/onbaording_second_text"
+        android:layout_width="320dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/lekton"
+        android:gravity="center"
+        android:text="Configure"
+        android:textAlignment="center"
+        android:textColor="#645CAA"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:circularflow_radiusInDP="90"
+        app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/start_onboarding_button3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:width="200dp"
+        android:height="55dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="@font/lekton"
+        android:shadowDy="4"
+        android:shadowRadius="4"
+        android:text="Iniciar"
+        android:textColor="#645CA9"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:cornerRadius="50dp"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_4_onboarding" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/list_4_onboarding"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:animateLayoutChanges="true"
+        android:outlineAmbientShadowColor="#000000"
+        android:outlineProvider="paddedBounds"
+        android:outlineSpotShadowColor="#000000"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_3_onboarding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/categoria_onboarding_4"
+                    android:layout_width="200dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lekton"
+                    android:gravity="center"
+                    android:text="Vehiculo"
+                    android:textAlignment="viewStart"
+                    android:textColor="#645CAA"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_onboarding_4"
+                    android:layout_width="100dp"
+                    android:layout_height="53dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:boxStrokeWidth="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/categoria_titulo_text"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/categoria_onboarding_monto_maximo_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/lekton"
+                        android:gravity="center"
+                        android:hint="$0"
+                        android:textColor="#645CA9"
+                        android:textColorHighlight="#645CA9"
+                        android:textColorHint="#645CA9"
+                        android:textColorLink="#645CA8"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/list_3_onboarding"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:animateLayoutChanges="true"
+        android:outlineAmbientShadowColor="#000000"
+        android:outlineProvider="paddedBounds"
+        android:outlineSpotShadowColor="#000000"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_2_onboarding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/categoria_onboarding_3"
+                    android:layout_width="200dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lekton"
+                    android:gravity="center"
+                    android:text="Salud"
+                    android:textAlignment="viewStart"
+                    android:textColor="#645CAA"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_onboarding_3"
+                    android:layout_width="100dp"
+                    android:layout_height="53dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:boxStrokeWidth="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/categoria_titulo_text"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/categoria_onboarding_monto_maximo_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/lekton"
+                        android:gravity="center"
+                        android:hint="$0"
+                        android:textColor="#645CA9"
+                        android:textColorHighlight="#645CA9"
+                        android:textColorHint="#645CA9"
+                        android:textColorLink="#645CA8"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/list_2_onboarding"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:animateLayoutChanges="true"
+        android:outlineAmbientShadowColor="#000000"
+        android:outlineProvider="paddedBounds"
+        android:outlineSpotShadowColor="#000000"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_1_onboarding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/categoria_onboarding_2"
+                    android:layout_width="200dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lekton"
+                    android:gravity="center"
+                    android:text="Hogar"
+                    android:textAlignment="viewStart"
+                    android:textColor="#645CAA"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_onboarding_2"
+                    android:layout_width="100dp"
+                    android:layout_height="53dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:boxStrokeWidth="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/categoria_titulo_text"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/categoria_onboarding_monto_maximo_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/lekton"
+                        android:gravity="center"
+                        android:hint="$0"
+                        android:textColor="#645CA9"
+                        android:textColorHighlight="#645CA9"
+                        android:textColorHint="#645CA9"
+                        android:textColorLink="#645CA8"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="wrap_content"
+        android:layout_height="490dp"
+        android:background="@drawable/layout_left_rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/list_1_onboarding"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="75dp"
+        android:animateLayoutChanges="true"
+        android:outlineAmbientShadowColor="#000000"
+        android:outlineProvider="paddedBounds"
+        android:outlineSpotShadowColor="#000000"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="1dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/categoria_onboarding_0"
+                    android:layout_width="200dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lekton"
+                    android:gravity="center"
+                    android:text="Entretenimiento"
+                    android:textAlignment="viewStart"
+                    android:textColor="#645CAA"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput_onboarding_1"
+                    android:layout_width="100dp"
+                    android:layout_height="53dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:boxStrokeWidth="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/categoria_titulo_text"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/categoria_onboarding_monto_maximo_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/lekton"
+                        android:gravity="center"
+                        android:hint="$0"
+                        android:textColor="#645CA9"
+                        android:textColorHighlight="#645CA9"
+                        android:textColorHint="#645CA9"
+                        android:textColorLink="#645CA8"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

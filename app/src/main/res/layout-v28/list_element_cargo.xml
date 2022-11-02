@@ -6,7 +6,7 @@
     android:layout_height="140dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv5"
+        android:id="@+id/list_onboarding_entretenimiento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
