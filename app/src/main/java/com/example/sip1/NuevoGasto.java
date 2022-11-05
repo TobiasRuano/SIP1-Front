@@ -3,6 +3,8 @@ package com.example.sip1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -35,29 +37,50 @@ public class NuevoGasto extends AppCompatActivity {
         agregarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //Valido los datos para crear el Expense
+                if(!textViewNombre.getText().toString().matches("") &&
+                        !textViewMonto.getText().toString().matches("") &&
+                        !textViewFechaProximoPago.getText().toString().matches("") &&
+                        !textViewCategoria.getText().toString().matches("")){
 
-
-                //Formateo las fechas para poder pasarlas y crear Expense
-                SimpleDateFormat formatter = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    formatter = new SimpleDateFormat("dd.MM.yyyy");
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    try {
-                        expense = new Expense(textViewNombre.getText().toString(), Double.parseDouble(textViewMonto.getText().toString()),
-                                formatter.parse(textViewFechaProximoPago.getText().toString()),
-                                    textViewCategoria.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                    //Formateo las fechas para poder pasarlas y crear Expense
+                    SimpleDateFormat formatter = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        formatter = new SimpleDateFormat("dd.MM.yyyy");
                     }
-                }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        try {
+                            expense = new Expense(textViewNombre.getText().toString(),
+                                    Double.parseDouble(textViewMonto.getText().toString()),
+                                    formatter.parse(textViewFechaProximoPago.getText().toString()),
+                                    textViewCategoria.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                //Salto a Home y paso el objeto expense
-                Intent intent = new Intent(NuevoGasto.this, MainActivity.class);
-                intent.putExtra("newExpense", expense);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
+                    //Salto a Home y paso el objeto expense
+                    Intent intent = new Intent(NuevoGasto.this, MainActivity.class);
+                    intent.putExtra("newExpense", expense);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+
+                } else { //si algun campo quedo vacio levanto una alerta
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+                    builder1.setMessage("Por favor complete todos los campos para continuar");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                        "ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                        }
+                    });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
             }
         });
     }
