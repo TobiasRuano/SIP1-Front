@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:fontFamily="@font/lekton"
-        android:text="Sabemos que te gusta mucho!"
+        android:text="Para brindarte un mejor servicio necesitamos saber que tanto lo usas!"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30dp"
@@ -59,7 +59,9 @@
         android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
         android:indeterminate="false"
         android:max="100"
         android:progress="50"
@@ -97,4 +99,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/lekton"
+        android:text="No puedo vivir sin el!"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar"
+        app:layout_constraintStart_toEndOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lekton"
+        android:text="No lo use"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar"
+        app:layout_constraintStart_toStartOf="@+id/seekBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
