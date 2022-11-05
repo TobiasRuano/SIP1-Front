@@ -19,6 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
     <style name="Theme.SIP1.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SIP1.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
