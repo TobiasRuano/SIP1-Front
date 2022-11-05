@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sip1.models.Expense;
 import com.example.sip1.ui.home.HomeFragment;
@@ -38,51 +39,56 @@ public class NuevoGasto extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //Valido los datos para crear el Expense
-                if(!textViewNombre.getText().toString().matches("") &&
-                        !textViewMonto.getText().toString().matches("") &&
-                        !textViewFechaProximoPago.getText().toString().matches("") &&
-                        !textViewCategoria.getText().toString().matches("")){
+                String nombre = textViewNombre.getText().toString();
+                String monto = textViewMonto.getText().toString();
+                String fecha = textViewFechaProximoPago.getText().toString();
+                String categoria = textViewCategoria.getText().toString();
 
-                    //Formateo las fechas para poder pasarlas y crear Expense
-                    SimpleDateFormat formatter = null;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        formatter = new SimpleDateFormat("dd.MM.yyyy");
+                if (nombre.matches("")) {
+                    Toast.makeText(getApplicationContext(), "Por favor ingrese el nombre de un cargo", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (monto.matches("")) {
+                    Toast.makeText(getApplicationContext(), "Por favor ingrese un monto", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (categoria.matches("")) {
+                    Toast.makeText(getApplicationContext(), "Por favor ingrese una categoria", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (fecha.matches("")) {
+                    Toast.makeText(getApplicationContext(), "Por favor ingrese una fecha valida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                //Formateo las fechas para poder pasarlas y crear Expense
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        expense = new Expense(textViewNombre.getText().toString(),
+                                Double.parseDouble(textViewMonto.getText().toString()),
+                                formatter.parse(textViewFechaProximoPago.getText().toString()),
+                                textViewCategoria.getText().toString());
+
+                        //Salto a Home y paso el objeto expense
+                        goToHome(expense);
+                    } catch (ParseException e) {
+                        Toast.makeText(getApplicationContext(), "Por favor verifique la fecha ingresada. Debe tener el siguiente formato: dd/MM/AAAA", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        try {
-                            expense = new Expense(textViewNombre.getText().toString(),
-                                    Double.parseDouble(textViewMonto.getText().toString()),
-                                    formatter.parse(textViewFechaProximoPago.getText().toString()),
-                                    textViewCategoria.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    //Salto a Home y paso el objeto expense
-                    Intent intent = new Intent(NuevoGasto.this, MainActivity.class);
-                    intent.putExtra("newExpense", expense);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-
-                } else { //si algun campo quedo vacio levanto una alerta
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
-                    builder1.setMessage("Por favor complete todos los campos para continuar");
-                    builder1.setCancelable(true);
-
-                    builder1.setPositiveButton(
-                        "ok",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                        }
-                    });
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
                 }
             }
         });
+    }
+
+    private void goToHome(Expense expense) {
+        Intent intent = new Intent(NuevoGasto.this, MainActivity.class);
+        intent.putExtra("newExpense", expense);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     private void configureUI() {
