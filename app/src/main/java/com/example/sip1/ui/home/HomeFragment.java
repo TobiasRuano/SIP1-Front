@@ -2,13 +2,16 @@ package com.example.sip1.ui.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -56,6 +59,9 @@ public class HomeFragment extends Fragment {
 
         configureUI();
 
+        // TODO: este popup no se debe mostrar siempre!!
+        this.showServicePopup();
+
         return root;
     }
 
@@ -78,7 +84,6 @@ public class HomeFragment extends Fragment {
         createNewExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Aca presentamos la pantalla de nuevo cargos
                 Intent intent = new Intent(getContext(), NuevoGasto.class);
 
                 mGetContent.launch(intent);
@@ -116,6 +121,28 @@ public class HomeFragment extends Fragment {
         }
 
         return total;
+    }
+
+    private void showServicePopup() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.service_popup);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+
+        Button okayButton = dialog.findViewById(R.id.popup_cargo_boton);
+        SeekBar seekBar = dialog.findViewById(R.id.popup_cargo_seekbar);
+
+        okayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                String string = "El valor de la barra es: " + seekBar.getProgress() + "%";
+                Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
