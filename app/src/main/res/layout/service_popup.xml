@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_cargo_text" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/popup_cargo_seekbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -72,9 +72,9 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_rate_cargo_text" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/popup_cargo_boton"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/white"
@@ -98,7 +98,7 @@
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/popup_cargo_seekbar" />
 
     <TextView
         android:id="@+id/textView7"
@@ -109,9 +109,9 @@
         android:text="No puedo vivir sin el!"
         android:textColor="#FFFFFF"
         android:textSize="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar"
-        app:layout_constraintStart_toEndOf="@+id/seekBar" />
+        app:layout_constraintBottom_toTopOf="@+id/popup_cargo_seekbar"
+        app:layout_constraintEnd_toEndOf="@+id/popup_cargo_seekbar"
+        app:layout_constraintStart_toEndOf="@+id/popup_cargo_seekbar" />
 
     <TextView
         android:id="@+id/textView8"
@@ -121,7 +121,7 @@
         android:text="No lo use"
         android:textColor="#FFFFFF"
         android:textSize="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar"
-        app:layout_constraintStart_toStartOf="@+id/seekBar" />
+        app:layout_constraintBottom_toTopOf="@+id/popup_cargo_seekbar"
+        app:layout_constraintEnd_toStartOf="@+id/popup_cargo_seekbar"
+        app:layout_constraintStart_toStartOf="@+id/popup_cargo_seekbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
