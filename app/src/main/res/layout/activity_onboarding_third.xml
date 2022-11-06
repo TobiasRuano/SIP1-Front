@@ -45,7 +45,7 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/lekton"
         android:gravity="center"
-        android:text="Message"
+        android:text="Todo listo! Ahora ya podés empezar a agregar tus gastos recurrentes."
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30dp"
