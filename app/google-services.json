@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "479185656398",
+    "firebase_url": "https://itsmycash-default-rtdb.firebaseio.com",
+    "project_id": "itsmycash",
+    "storage_bucket": "itsmycash.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479185656398:android:11c4d6a93d755c9e3b411f",
+        "android_client_info": {
+          "package_name": "com.example.sip1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479185656398-pod83e3p762inm1ktdc12krca7c44m1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_YIt8gbFGGizgqlLaQffB_FTUBtR2Yms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479185656398-pod83e3p762inm1ktdc12krca7c44m1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
