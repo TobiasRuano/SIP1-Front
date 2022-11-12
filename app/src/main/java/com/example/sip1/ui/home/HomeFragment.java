@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,6 +144,7 @@ public class HomeFragment extends Fragment {
         dialog.setContentView(R.layout.service_popup);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
 
         Button okayButton = dialog.findViewById(R.id.popup_cargo_boton);
