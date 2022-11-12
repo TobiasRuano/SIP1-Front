@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sip1.models.Expense;
+import com.example.sip1.models.Usage;
 import com.example.sip1.ui.home.HomeFragment;
 
 import java.text.ParseException;
@@ -71,7 +72,7 @@ public class NuevoGasto extends AppCompatActivity {
                         expense = new Expense(textViewNombre.getText().toString(),
                                 Double.parseDouble(textViewMonto.getText().toString()),
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),
-                                textViewCategoria.getText().toString());
+                                textViewCategoria.getText().toString(), Usage.UNKOWN);
 
                         //Salto a Home y paso el objeto expense
                         goToHome(expense);

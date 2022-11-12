@@ -8,12 +8,14 @@ public class Expense implements Serializable {
     private Double amount;
     private Date nextChargeDate;
     private String category;
+    private Usage useAmount;
 
-    public Expense(String name, Double amount, Date nextChargeDate, String category) {
+    public Expense(String name, Double amount, Date nextChargeDate, String category, Usage usage) {
         this.name = name;
         this.amount = amount;
         this.nextChargeDate = nextChargeDate;
         this.category = category;
+        this.useAmount = usage;
     }
 
     public String getName() {
@@ -47,4 +49,8 @@ public class Expense implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public void setUseAmount(Usage useAmount) { this.useAmount = useAmount; }
+
+    public Usage getUseAmount() { return useAmount; }
 }

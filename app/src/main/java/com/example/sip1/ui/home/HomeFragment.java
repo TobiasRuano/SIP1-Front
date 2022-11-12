@@ -25,6 +25,7 @@ import com.example.sip1.R;
 import com.example.sip1.SaveManager;
 import com.example.sip1.databinding.FragmentHomeBinding;
 import com.example.sip1.models.Expense;
+import com.example.sip1.models.Usage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -82,8 +83,6 @@ public class HomeFragment extends Fragment {
         recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
         montoMensualTextView = (TextView) binding.getRoot().findViewById(R.id.valor_monto_mensual);
 
-        //createMockExpenses();
-
         adapter = new CargoHomeAdapter(getContext(), expenses);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -110,23 +109,6 @@ public class HomeFragment extends Fragment {
         calculateMonthlyAmount(expenses);
     }
 
-    private void createMockExpenses() {
-        Expense expense1 = new Expense("Netflix", 1550.25, new Date(), "Entretenimiento");
-        expenses.add(expense1);
-
-        Date expense2Date = new GregorianCalendar(2022, Calendar.NOVEMBER, 10).getTime();
-        Expense expense2 = new Expense("Spotify", 325.0, expense2Date, "Entretenimiento");
-        expenses.add(expense2);
-
-        Date expense3Date = new GregorianCalendar(2022, Calendar.NOVEMBER, 30).getTime();
-        Expense expense3 = new Expense("Disney+", 356.0, expense3Date, "Entretenimiento");
-        expenses.add(expense3);
-
-        Date expense4Date = new GregorianCalendar(2022, Calendar.OCTOBER, 31).getTime();
-        Expense expense4 = new Expense("Paramount+", 750.0, expense4Date, "Entretenimiento");
-        expenses.add(expense4);
-    }
-
     private Double calculateMonthlyAmount(List<Expense> expenses) {
         Double total = 0.0;
 
@@ -140,7 +122,20 @@ public class HomeFragment extends Fragment {
     private void checkAndShowServicePopup() {
         // TODO: este popup no se debe mostrar siempre!!
 
-        if (expenses.size() != 0) {
+        if (expenses.size() == 0) {
+            return;
+        }
+
+        Expense expensePopup = null;
+        Integer position = null;
+        for (int i = 0; i < expenses.size(); i ++) {
+            if (expenses.get(i).getUseAmount() == Usage.UNKOWN) {
+                expensePopup = expenses.get(i);
+                position = i;
+            }
+        }
+
+        if (expensePopup == null) {
             return;
         }
 
@@ -152,13 +147,31 @@ public class HomeFragment extends Fragment {
 
         Button okayButton = dialog.findViewById(R.id.popup_cargo_boton);
         SeekBar seekBar = dialog.findViewById(R.id.popup_cargo_seekbar);
+        TextView popUpTitle = dialog.findViewById(R.id.popup_cargo_text);
 
+        popUpTitle.setText(expensePopup.getName());
+
+        Expense finalExpensePopup = expensePopup;
+        Integer finalPosition = position;
         okayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                String string = "El valor de la barra es: " + seekBar.getProgress() + "%";
+                Integer percentageUseage = seekBar.getProgress();
+                String string = "El valor de la barra es: " + percentageUseage + "%";
                 Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
+
+                if (percentageUseage < 40) {
+                    finalExpensePopup.setUseAmount(Usage.LOW);
+                } else if (percentageUseage < 60) {
+                    finalExpensePopup.setUseAmount(Usage.MEDIUM);
+                } else {
+                    finalExpensePopup.setUseAmount(Usage.HIGH);
+                }
+
+                expenses.remove(finalExpensePopup);
+                expenses.add(finalExpensePopup);
+                SaveManager.Shared().saveExpenses(expenses, getActivity());
             }
         });
 
