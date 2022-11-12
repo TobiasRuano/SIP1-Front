@@ -2,28 +2,41 @@ package com.example.sip1.ui.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
+import com.example.sip1.SaveManager;
 import com.example.sip1.databinding.FragmentHomeBinding;
 import com.example.sip1.models.Expense;
+import com.example.sip1.models.Usage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -54,7 +67,14 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        List<Expense> returnedExpenses = SaveManager.Shared().readExpenses(getActivity());
+        if (returnedExpenses != null) {
+            expenses.addAll(returnedExpenses);
+        }
+
         configureUI();
+
+        this.checkAndShowServicePopup();
 
         return root;
     }
@@ -63,8 +83,6 @@ public class HomeFragment extends Fragment {
         createNewExpenseButton = (Button) binding.getRoot().findViewById(R.id.nuevo_cargo_button);
         recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
         montoMensualTextView = (TextView) binding.getRoot().findViewById(R.id.valor_monto_mensual);
-
-        createMockExpenses();
 
         adapter = new CargoHomeAdapter(getContext(), expenses);
         recyclerView.setHasFixedSize(true);
@@ -78,7 +96,6 @@ public class HomeFragment extends Fragment {
         createNewExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Aca presentamos la pantalla de nuevo cargos
                 Intent intent = new Intent(getContext(), NuevoGasto.class);
 
                 mGetContent.launch(intent);
@@ -88,24 +105,9 @@ public class HomeFragment extends Fragment {
 
     public void addNewExpense(Expense expense) {
         expenses.add(expense);
+        SaveManager.Shared().saveExpenses(expenses, getActivity());
         adapter.setItems(expenses);
-    }
-
-    private void createMockExpenses() {
-        Expense expense1 = new Expense("Netflix", 1550.25, new Date(), "Entretenimiento");
-        expenses.add(expense1);
-
-        Date expense2Date = new GregorianCalendar(2022, Calendar.NOVEMBER, 10).getTime();
-        Expense expense2 = new Expense("Spotify", 325.0, expense2Date, "Entretenimiento");
-        expenses.add(expense2);
-
-        Date expense3Date = new GregorianCalendar(2022, Calendar.NOVEMBER, 30).getTime();
-        Expense expense3 = new Expense("Disney+", 356.0, expense3Date, "Entretenimiento");
-        expenses.add(expense3);
-
-        Date expense4Date = new GregorianCalendar(2022, Calendar.OCTOBER, 31).getTime();
-        Expense expense4 = new Expense("Paramount+", 750.0, expense4Date, "Entretenimiento");
-        expenses.add(expense4);
+        calculateMonthlyAmount(expenses);
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {
@@ -116,6 +118,66 @@ public class HomeFragment extends Fragment {
         }
 
         return total;
+    }
+
+    private void checkAndShowServicePopup() {
+        // TODO: este popup no se debe mostrar siempre!!
+
+        if (expenses.size() == 0) {
+            return;
+        }
+
+        Expense expensePopup = null;
+        Integer position = null;
+        for (int i = 0; i < expenses.size(); i ++) {
+            if (expenses.get(i).getUseAmount() == Usage.UNKOWN) {
+                expensePopup = expenses.get(i);
+                position = i;
+            }
+        }
+
+        if (expensePopup == null) {
+            return;
+        }
+
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.service_popup);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+
+        Button okayButton = dialog.findViewById(R.id.popup_cargo_boton);
+        SeekBar seekBar = dialog.findViewById(R.id.popup_cargo_seekbar);
+        TextView popUpTitle = dialog.findViewById(R.id.popup_cargo_text);
+
+        popUpTitle.setText(expensePopup.getName());
+
+        Expense finalExpensePopup = expensePopup;
+        Integer finalPosition = position;
+        okayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Integer percentageUseage = seekBar.getProgress();
+                String string = "El valor de la barra es: " + percentageUseage + "%";
+                Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
+
+                if (percentageUseage < 40) {
+                    finalExpensePopup.setUseAmount(Usage.LOW);
+                } else if (percentageUseage < 60) {
+                    finalExpensePopup.setUseAmount(Usage.MEDIUM);
+                } else {
+                    finalExpensePopup.setUseAmount(Usage.HIGH);
+                }
+
+                expenses.remove(finalExpensePopup);
+                expenses.add(finalExpensePopup);
+                SaveManager.Shared().saveExpenses(expenses, getActivity());
+            }
+        });
+
+        dialog.show();
     }
 
     @Override

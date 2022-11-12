@@ -63,14 +63,14 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                showActionAlert("Eliminar", "Estas seguro que deseas eliminar este servicio?");
+                showActionAlert();
                 return false;
             }
 
-            private void showActionAlert(String titulo, String mensaje) {
+            private void showActionAlert() {
                 new AlertDialog.Builder(holder.card.getContext())
-                        .setTitle(titulo)
-                        .setMessage(mensaje)
+                        .setTitle("Eliminar")
+                        .setMessage("Estas seguro que deseas eliminar este servicio?")
                         .setPositiveButton("Cancelar", null)
                         .setNegativeButton("Si", new DialogInterface.OnClickListener() {
                             @Override
@@ -84,6 +84,7 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
             private void deleteService(Expense expense) {
                 // Eliminar el servicio
                 expenses.remove(position);
+                notifyDataSetChanged();
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,expenses.size());
                 System.out.println("Se elimino un elemento de la tabla");
@@ -112,22 +113,22 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
     private Date calculateNextChargDate(Date first) {
         Date today = new Date();
 
-        int dateComparison = today.compareTo(first);
+        int dateComparison = first.compareTo(today);
         if (dateComparison == 0) {
             return today;
-        } else if (dateComparison < 0) {
+        } else if (dateComparison > 0) {
             return first;
         } else {
             Date returnDate = first;
 
             while (dateComparison < 0) {
                 GregorianCalendar calendar = new GregorianCalendar();
-                calendar.setTime(first);
+                calendar.setTime(returnDate);
                 calendar.add(Calendar.MONTH , 1);
 
                 returnDate = calendar.getTime();
 
-                dateComparison = today.compareTo(returnDate);
+                dateComparison = returnDate.compareTo(today);
             }
 
             return returnDate;
