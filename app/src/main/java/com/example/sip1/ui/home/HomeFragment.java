@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
+import com.example.sip1.SaveManager;
 import com.example.sip1.databinding.FragmentHomeBinding;
 import com.example.sip1.models.Expense;
 
@@ -64,7 +65,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        List<Expense> returnedExpenses = readExpenses();
+        List<Expense> returnedExpenses = SaveManager.Shared().readExpenses(getActivity());
         if (returnedExpenses != null) {
             expenses.addAll(returnedExpenses);
         }
@@ -104,8 +105,9 @@ public class HomeFragment extends Fragment {
 
     public void addNewExpense(Expense expense) {
         expenses.add(expense);
-        saveExpenses(expenses);
+        SaveManager.Shared().saveExpenses(expenses, getActivity());
         adapter.setItems(expenses);
+        calculateMonthlyAmount(expenses);
     }
 
     private void createMockExpenses() {
@@ -133,64 +135,6 @@ public class HomeFragment extends Fragment {
         }
 
         return total;
-    }
-
-    public Boolean saveExpenses(List<Expense> expenses) {//saves expenses into fileName (data.bin)
-        ObjectOutputStream oos = null;
-        try {
-            File file = new File(getActivity().getFilesDir().toString(), "data.bin");
-            file.createNewFile();
-            FileOutputStream fos = getActivity().openFileOutput("data.bin", getActivity().MODE_PRIVATE);
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(expenses);
-            oos.close();
-            fos.close();
-            return true;
-        } catch (FileNotFoundException err) {
-            Toast.makeText(getActivity(), "Something went wrong while saving", Toast.LENGTH_SHORT).show();
-            return false;
-        } catch (Exception abcd) {
-            Toast.makeText(getActivity(), "Something went wrong while saving 2.0", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        finally {//makes sure to close the ObjectOutputStream
-            if (oos != null) {
-                try {
-                    oos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public List<Expense> readExpenses() {//reads expenses[] object from(data.bin) and returns it.
-        ObjectInputStream ois = null;
-        try {
-            File file = new File(getActivity().getFilesDir().toString()+"/"+"data.bin");
-            if (file.exists()) {
-                ois = new ObjectInputStream(new FileInputStream(file));
-                List<Expense> temp = (List<Expense>)ois.readObject();
-                ois.close();
-                return temp;
-            } else {
-                return null;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (ois != null) {
-                try {
-                    ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     private void checkAndShowServicePopup() {
