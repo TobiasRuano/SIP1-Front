@@ -20,6 +20,7 @@ public class OnboardingThird extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SaveManager.Shared().saveOnboardingStatus(true, OnboardingThird.this);
                 Intent intent = new Intent(OnboardingThird.this, MainActivity.class); //change
                 startActivity(intent);
             }
