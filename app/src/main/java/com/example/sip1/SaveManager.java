@@ -1,6 +1,7 @@
 package com.example.sip1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 import com.example.sip1.models.Expense;
@@ -27,23 +28,20 @@ public class SaveManager {
         return instance;
     }
 
-    public Boolean saveExpenses(List<Expense> expenses, Activity activity) {//saves expenses into fileName (data.bin)
+    public void saveExpenses(List<Expense> expenses, Activity activity) {//saves expenses into fileName (data.bin)
         ObjectOutputStream oos = null;
         try {
             File file = new File(activity.getFilesDir().toString(), "data.bin");
             file.createNewFile();
-            FileOutputStream fos = activity.openFileOutput("data.bin", activity.MODE_PRIVATE);
+            FileOutputStream fos = activity.openFileOutput("data.bin", Context.MODE_PRIVATE);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(expenses);
             oos.close();
             fos.close();
-            return true;
         } catch (FileNotFoundException err) {
             Toast.makeText(activity, "Something went wrong while saving", Toast.LENGTH_SHORT).show();
-            return false;
         } catch (Exception abcd) {
             Toast.makeText(activity, "Something went wrong while saving 2.0", Toast.LENGTH_SHORT).show();
-            return false;
         }
         finally {//makes sure to close the ObjectOutputStream
             if (oos != null) {
@@ -68,10 +66,7 @@ public class SaveManager {
             } else {
                 return null;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         } finally {
