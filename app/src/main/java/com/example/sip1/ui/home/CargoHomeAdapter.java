@@ -84,6 +84,7 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
             private void deleteService(Expense expense) {
                 // Eliminar el servicio
                 expenses.remove(position);
+                notifyDataSetChanged();
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,expenses.size());
                 System.out.println("Se elimino un elemento de la tabla");
