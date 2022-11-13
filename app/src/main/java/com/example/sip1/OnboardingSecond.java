@@ -17,7 +17,7 @@ public class OnboardingSecond extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_second);
         configureUI();
-        continueButton = (Button)findViewById(R.id.start_onboarding_button3);
+        continueButton = (Button)findViewById(R.id.IrALaWeb_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
