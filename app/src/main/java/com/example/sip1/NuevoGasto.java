@@ -14,6 +14,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.io.FileReader;
+
 import com.example.sip1.models.Expense;
 import com.example.sip1.ui.home.HomeFragment;
 
@@ -30,13 +40,20 @@ public class NuevoGasto extends AppCompatActivity {
     Button agregarButton;
     Expense expense;
 
+    Spinner spinnerCategoria = findViewById(R.id.idSpinnerCategorias);
+    private String datos;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_gasto);
         configureUI();
+        setData();
         agregarButton.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
 
                 String nombre = textViewNombre.getText().toString();
@@ -91,10 +108,18 @@ public class NuevoGasto extends AppCompatActivity {
         finish();
     }
 
+    private void setData() {
+        ArrayAdapter<CharSequence>adapter = ArrayAdapter.createFromResource(this, R.array.categorias, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        spinnerCategoria.setAdapter(adapter);
+    }
+
     private void configureUI() {
         textViewNombre = (TextView) findViewById(R.id.idTextNombre);
         textViewMonto = (TextView) findViewById(R.id.idTextMonto);
-        textViewCategoria = (TextView) findViewById(R.id.idTextCategoria);
+        /*textViewCategoria = (TextView) findViewById(R.id.idTextCategoria);*/
+        spinnerCategoria = (Spinner) findViewById(R.id.idSpinnerCategorias);
         textViewTipoDeCargo = (TextView) findViewById(R.id.idTextTipoDeCargo);
         textViewDetalle = (TextView) findViewById(R.id.idTextDetalle);
         textViewFechaProximoPago = (TextView) findViewById(R.id.idDateFechaProximoPago);

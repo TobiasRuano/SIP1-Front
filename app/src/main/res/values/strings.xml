@@ -10,4 +10,13 @@
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Calendario</string>
     <string name="menu_slideshow">Graficos</string>
+
+    <string name="droplist_categorias">Categorías</string>
+    <string-array name="categorias">
+        <item>Entretenimiento</item>
+        <item>Hogar</item>
+        <item>Salud</item>
+        <item>Vehículo</item>
+    </string-array>
+
 </resources>
