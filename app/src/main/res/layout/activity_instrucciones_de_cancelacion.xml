@@ -1,67 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".OnboardingSecond">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/onbaording_second_text"
-        android:layout_width="320dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/lekton"
-        android:gravity="center"
-        android:text="Sigue estas intrucciones para dar de baja"
-        android:textAlignment="center"
-        android:textColor="#645CAA"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:circularflow_radiusInDP="90"
-        app:layout_constraintBottom_toTopOf="@+id/view5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/IrALaWeb_button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:width="200dp"
-        android:height="55dp"
-        android:backgroundTint="#FFFFFF"
-        android:fontFamily="@font/lekton"
-        android:shadowDy="4"
-        android:shadowRadius="4"
-        android:text="Ir a la web"
-        android:textColor="#645CA9"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        app:cornerRadius="50dp"
-        app:iconTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/view5"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="700dp"
-        android:background="@drawable/layout_left_rounded"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="350sp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/lekton"
-        android:gravity="center|left"
-        android:text="1. Ingresa a la web www.tuwebapp.com.
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".OnboardingSecond">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="320dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/lekton"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#645CAA"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:circularflow_radiusInDP="90"
+                app:layout_constraintBottom_toTopOf="@+id/view5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.615"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="wrap_content"
+                android:layout_height="1400dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/layout_left_rounded"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+            <TextView
+                android:id="@+id/textViewInstrucciones"
+                android:layout_width="350sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lekton"
+                android:gravity="center|left"
+                android:text="1. Ingresa a la web www.tuwebapp.com.
                 2. Inicia sesion con tu usuario y contraseña.
                     3.En el menu de usuario ingresa a “Mi cuenta”.
                         4. Ingresa a suscripciones activas.
@@ -69,24 +61,76 @@
                         6. Se mostrara un detalle de la suscripcion seleccionada, en la parte inferior presiona “Dar de baja”.
                             7. Confirma la baja.
                             8. Recibiras un mail con la confirmacion. "
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="324dp" />
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.571"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1"
+                app:layout_constraintVertical_bias="0.238" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/lekton"
-        android:gravity="center"
-        android:text="Sigue paso a paso las siguientes instrucciones: "
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="182dp" />
+            <Button
+                android:id="@+id/IrALaWeb_button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="348dp"
+                android:width="200dp"
+                android:height="55dp"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/lekton"
+                android:shadowDy="4"
+                android:shadowRadius="4"
+                android:text="Ir a la web"
+                android:textColor="#645CA9"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                app:cornerRadius="50dp"
+                app:iconTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="350sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lekton"
+                android:gravity="center|left"
+                android:text="1. Ingresa a la web www.tuwebapp.com.
+                2. Inicia sesion con tu usuario y contraseña.
+                    3.En el menu de usuario ingresa a “Mi cuenta”.
+                        4. Ingresa a suscripciones activas.
+                        5. Selecciona la suscripcion que quieres dar de baja.
+                        6. Se mostrara un detalle de la suscripcion seleccionada, en la parte inferior presiona “Dar de baja”.
+                            7. Confirma la baja.
+                            8. Recibiras un mail con la confirmacion. "
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.573"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1"
+                app:layout_constraintVertical_bias="0.598" />
+
+            <TextView
+                android:id="@+id/textViewTitulo"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lekton"
+                android:gravity="center"
+                android:text="Sigue estas intrucciones para dar de baja:"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/view5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1"
+                app:layout_constraintVertical_bias="0.091" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</ScrollView>

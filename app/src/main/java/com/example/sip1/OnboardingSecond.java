@@ -28,7 +28,7 @@ public class OnboardingSecond extends AppCompatActivity {
     }
 
     private void configureUI() {
-        textView = (TextView) findViewById(R.id.onbaording_second_text);
+        textView = (TextView) findViewById(R.id.textView1);
         textView.setText("Configura tus montos por categoría");
         textView = (TextView) findViewById(R.id.categoria_onboarding_0);
         textView.setText("Entretenimiento");
