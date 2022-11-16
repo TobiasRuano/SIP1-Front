@@ -18,20 +18,22 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/idTextNombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Nombre*"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#737272"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -42,13 +44,15 @@
         android:id="@+id/idTextDetalle"
         android:layout_width="370dp"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Detalle*"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#737272"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/idTextTipoDeCargo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idSpinnerCategorias" />
@@ -58,34 +62,40 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Link de cancelacion*"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#737272"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="635dp" />
+        app:layout_constraintTop_toBottomOf="@+id/idDateFechaProximoPago" />
 
     <EditText
         android:id="@+id/idTextMonto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Monto*"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#737272"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="253dp" />
+        app:layout_constraintTop_toBottomOf="@+id/idTextNombre" />
 
     <TextView
         android:id="@+id/textViewNuevoGasto"
@@ -104,7 +114,6 @@
         android:id="@+id/Agregar_NuevoCargo_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:width="200dp"
         android:height="55dp"
         android:backgroundTint="#FFFFFF"
@@ -125,14 +134,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
         android:hint="Fecha Proximo Pago"
         android:inputType="date"
+        android:textColor="#000000"
+        android:textColorHint="#737272"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/idTextLinkDeCancelacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -142,6 +153,7 @@
         android:id="@+id/idTextTipoDeCargo"
         android:layout_width="357dp"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         android:buttonTint="#FFFDFD"
         android:checked="false"
         android:duplicateParentState="false"
@@ -151,18 +163,20 @@
         android:textColor="#FFFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="487dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idTextDetalle" />
 
     <Spinner
         android:id="@+id/idSpinnerCategorias"
         android:layout_width="370dp"
         android:layout_height="53dp"
+        android:layout_marginTop="16dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         android:tag="@string/droplist_categorias"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="319dp" />
+        app:layout_constraintTop_toBottomOf="@+id/idTextMonto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

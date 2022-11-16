@@ -33,7 +33,7 @@ import java.text.ParseException;
 public class NuevoGasto extends AppCompatActivity {
     TextView textViewNombre;
     TextView textViewMonto;
-    TextView textViewCategoria;
+    //TextView textViewCategoria;
     TextView textViewTipoDeCargo;
     TextView textViewDetalle;
     TextView textViewFechaProximoPago;
@@ -41,7 +41,7 @@ public class NuevoGasto extends AppCompatActivity {
     Button agregarButton;
     Expense expense;
 
-    Spinner spinnerCategoria = findViewById(R.id.idSpinnerCategorias);
+    Spinner spinnerCategoria;
     private String datos;
 
 
@@ -60,7 +60,7 @@ public class NuevoGasto extends AppCompatActivity {
                 String nombre = textViewNombre.getText().toString();
                 String monto = textViewMonto.getText().toString();
                 String fecha = textViewFechaProximoPago.getText().toString();
-                String categoria = textViewCategoria.getText().toString();
+                String categoria = spinnerCategoria.getSelectedItem().toString();
 
                 if (nombre.matches("")) {
                     Toast.makeText(getApplicationContext(), "Por favor ingrese el nombre de un cargo", Toast.LENGTH_SHORT).show();
@@ -89,7 +89,7 @@ public class NuevoGasto extends AppCompatActivity {
                         expense = new Expense(textViewNombre.getText().toString(),
                                 Double.parseDouble(textViewMonto.getText().toString()),
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),
-                                textViewCategoria.getText().toString(), Usage.UNKOWN);
+                                spinnerCategoria.getSelectedItem().toString(), Usage.UNKOWN);
 
                         //Salto a Home y paso el objeto expense
                         goToHome(expense);
