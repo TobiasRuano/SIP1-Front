@@ -23,7 +23,7 @@
     <EditText
         android:id="@+id/idTextNombre"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="40dp"
@@ -42,9 +42,11 @@
 
     <EditText
         android:id="@+id/idTextDetalle"
-        android:layout_width="370dp"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
@@ -60,7 +62,7 @@
     <EditText
         android:id="@+id/idTextLinkDeCancelacion"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
@@ -80,7 +82,7 @@
     <EditText
         android:id="@+id/idTextMonto"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
@@ -132,7 +134,7 @@
     <EditText
         android:id="@+id/idDateFechaProximoPago"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
@@ -151,9 +153,11 @@
 
     <CheckBox
         android:id="@+id/idTextTipoDeCargo"
-        android:layout_width="357dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
         android:buttonTint="#FFFDFD"
         android:checked="false"
         android:duplicateParentState="false"
@@ -169,10 +173,12 @@
 
     <Spinner
         android:id="@+id/idSpinnerCategorias"
-        android:layout_width="370dp"
-        android:layout_height="53dp"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
-        android:background="#FFFFFF"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
         android:backgroundTint="#FFFFFF"
         android:tag="@string/droplist_categorias"
         app:layout_constraintEnd_toEndOf="parent"
