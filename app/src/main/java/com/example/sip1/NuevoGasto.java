@@ -43,7 +43,7 @@ public class NuevoGasto extends AppCompatActivity {
     Button agregarButton;
     Expense expense;
     AutoCompleteTextView actv;
-    String desuscripcion;
+    String desubscripcion;
     String url;
 
     Spinner spinnerCategoria;
@@ -83,7 +83,7 @@ public class NuevoGasto extends AppCompatActivity {
                         textViewLinkDeCancelacion.setText(cargo.getURL());
                         url = cargo.getURL();
                         categoria = cargo.getCategoria();
-                        desuscripcion = cargo.getPasosDesuscripcion();
+                        desubscripcion = cargo.getPasosDesubscripcion();
 
 
                     }
@@ -117,7 +117,7 @@ public class NuevoGasto extends AppCompatActivity {
                         expense = new Expense(actv.getText().toString(),
                                 Double.parseDouble(textViewMonto.getText().toString()),
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),
-                                spinnerCategoria.getSelectedItem().toString(), Usage.UNKOWN, url, desuscripcion);
+                                spinnerCategoria.getSelectedItem().toString(), Usage.UNKOWN, url, desubscripcion);
 
                         //Salto a Home y paso el objeto expense
                         goToHome(expense);
@@ -158,15 +158,15 @@ public class NuevoGasto extends AppCompatActivity {
     private static class Cargos {
         private String Categoria;
         private String Nombre;
-        private String PasosDesuscripcion;
+        private String PasosDesubscripcion;
         private String URL;
 
         public Cargos() {  }
 
-        public Cargos(String Categoria, String Nombre, String PasosDesuscripcion, String URL) {
+        public Cargos(String Categoria, String Nombre, String PasosDesubscripcion, String URL) {
             this.Categoria = Categoria;
             this.Nombre = Nombre;
-            this.PasosDesuscripcion = PasosDesuscripcion;
+            this.PasosDesubscripcion = PasosDesubscripcion;
             this.URL = URL;
         }
         public String getCategoria(){
@@ -177,8 +177,8 @@ public class NuevoGasto extends AppCompatActivity {
             return Nombre;
         }
 
-        public String getPasosDesuscripcion() {
-            return PasosDesuscripcion;
+        public String getPasosDesubscripcion() {
+            return PasosDesubscripcion;
         }
 
         public String getURL() {
