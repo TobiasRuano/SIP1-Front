@@ -1,6 +1,7 @@
 package com.example.sip1;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,8 @@ public class InstruccionesDeCancelacion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Intent intent = new Intent(InstruccionesDeCancelacion.this, MainActivity.class);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                startActivity(browserIntent);
                 finish();
             }
 
