@@ -30,6 +30,7 @@ public class DetalleCargo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetalleCargo.this, InstruccionesDeCancelacion.class);
+                startActivity(intent);
             }
 
         });

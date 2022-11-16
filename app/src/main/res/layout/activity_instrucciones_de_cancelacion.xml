@@ -74,7 +74,7 @@
                 android:id="@+id/IrALaWeb_button"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="348dp"
+                android:layout_marginBottom="704dp"
                 android:width="200dp"
                 android:height="55dp"
                 android:backgroundTint="#FFFFFF"
@@ -91,29 +91,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="350sp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lekton"
-                android:gravity="center|left"
-                android:text="1. Ingresa a la web www.tuwebapp.com.
-                2. Inicia sesion con tu usuario y contraseña.
-                    3.En el menu de usuario ingresa a “Mi cuenta”.
-                        4. Ingresa a suscripciones activas.
-                        5. Selecciona la suscripcion que quieres dar de baja.
-                        6. Se mostrara un detalle de la suscripcion seleccionada, en la parte inferior presiona “Dar de baja”.
-                            7. Confirma la baja.
-                            8. Recibiras un mail con la confirmacion. "
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.573"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView1"
-                app:layout_constraintVertical_bias="0.598" />
 
             <TextView
                 android:id="@+id/textViewTitulo"
