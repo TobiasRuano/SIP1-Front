@@ -36,7 +36,6 @@ import com.google.firebase.database.ValueEventListener;
 public class NuevoGasto extends AppCompatActivity {
     TextView textViewNombre;
     TextView textViewMonto;
-    //TextView textViewCategoria;
     TextView textViewTipoDeCargo;
     TextView textViewDetalle;
     TextView textViewFechaProximoPago;
@@ -209,7 +208,6 @@ public class NuevoGasto extends AppCompatActivity {
         actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
         //textViewNombre = (TextView) findViewById(R.id.idTextNombre);
         textViewMonto = (TextView) findViewById(R.id.idTextMonto);
-        /*textViewCategoria = (TextView) findViewById(R.id.idTextCategoria);*/
         spinnerCategoria = (Spinner) findViewById(R.id.idSpinnerCategorias);
         textViewTipoDeCargo = (TextView) findViewById(R.id.idTextTipoDeCargo);
         textViewDetalle = (TextView) findViewById(R.id.idTextDetalle);
