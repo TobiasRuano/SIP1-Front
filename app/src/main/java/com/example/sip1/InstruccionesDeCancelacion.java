@@ -10,11 +10,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.sip1.models.Expense;
+
 public class InstruccionesDeCancelacion extends AppCompatActivity {
 
     TextView textViewTitulo;
     TextView textViewInstrucciones;
     Button irALaWebButton;
+    Expense expense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +27,9 @@ public class InstruccionesDeCancelacion extends AppCompatActivity {
         irALaWebButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(InstruccionesDeCancelacion.this, MainActivity.class);
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(expense.getUrl()));
                 startActivity(browserIntent);
-                finish();
             }
-
         });
     }
 
@@ -37,6 +37,11 @@ public class InstruccionesDeCancelacion extends AppCompatActivity {
         textViewTitulo = (TextView) findViewById(R.id.textViewTitulo);
         textViewInstrucciones = (TextView) findViewById(R.id.textViewInstrucciones);
         irALaWebButton = (Button) findViewById(R.id.IrALaWeb_button);
+
+        Intent intent = getIntent();
+        expense = (Expense) intent.getSerializableExtra("cargo_elemento");
+
+        textViewInstrucciones.setText(expense.getPasosDesuscripcion());
     }
 
 }
