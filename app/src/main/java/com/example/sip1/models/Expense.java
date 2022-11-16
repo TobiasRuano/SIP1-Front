@@ -10,16 +10,16 @@ public class Expense implements Serializable {
     private String category;
     private Usage useAmount;
     private String url;
-    private String pasosDesuscripcion;
+    private String pasosDesubscripcion;
 
-    public Expense(String name, Double amount, Date nextChargeDate, String category, Usage usage, String url, String pasosDesuscripcion) {
+    public Expense(String name, Double amount, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion) {
         this.name = name;
         this.amount = amount;
         this.nextChargeDate = nextChargeDate;
         this.category = category;
         this.useAmount = usage;
         this.url = url;
-        this.pasosDesuscripcion = pasosDesuscripcion;
+        this.pasosDesubscripcion = pasosDesubscripcion;
     }
 
     public String getName() {
