@@ -57,4 +57,20 @@ public class Expense implements Serializable {
     public void setUseAmount(Usage useAmount) { this.useAmount = useAmount; }
 
     public Usage getUseAmount() { return useAmount; }
+
+    public String getPasosDesuscripcion() {
+        return pasosDesuscripcion;
+    }
+
+    public void setPasosDesuscripcion(String pasosDesuscripcion) {
+        this.pasosDesuscripcion = pasosDesuscripcion;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }
