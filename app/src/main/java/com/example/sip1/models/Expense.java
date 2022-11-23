@@ -59,11 +59,11 @@ public class Expense implements Serializable {
     public Usage getUseAmount() { return useAmount; }
 
     public String getPasosDesuscripcion() {
-        return pasosDesuscripcion;
+        return pasosDesubscripcion;
     }
 
     public void setPasosDesuscripcion(String pasosDesuscripcion) {
-        this.pasosDesuscripcion = pasosDesuscripcion;
+        this.pasosDesubscripcion = pasosDesuscripcion;
     }
 
     public void setUrl(String url) {
