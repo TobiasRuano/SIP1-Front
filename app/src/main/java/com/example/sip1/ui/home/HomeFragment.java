@@ -101,6 +101,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), NuevoGasto.class);
+                intent.putExtra("cargos_mapeados", cargosList);
+                intent.putExtra("cargos_String", SERVICIOS);
 
                 mGetContent.launch(intent);
             }
@@ -117,6 +119,7 @@ public class HomeFragment extends Fragment {
                     Cargo cases = caseSnapshot.getValue(Cargo.class);
                     System.out.println(cases);
                     cargosList.add(cases);
+                    SERVICIOS.add(cases.nombre);
                 }
             }
 

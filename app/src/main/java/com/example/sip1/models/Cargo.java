@@ -2,10 +2,10 @@ package com.example.sip1.models;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Cargo {
+public class Cargo implements Serializable {
 
     @Expose
     public String categoria;

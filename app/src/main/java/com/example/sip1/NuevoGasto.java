@@ -16,6 +16,7 @@ import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.sip1.models.Cargo;
 import com.example.sip1.models.Expense;
 import com.example.sip1.models.Price;
 import com.example.sip1.models.Usage;
@@ -39,13 +40,17 @@ public class NuevoGasto extends AppCompatActivity {
     Spinner spinnerCategoria;
     private String datos;
 
-    ArrayList<Expense> cargosList = new ArrayList<>();
+    ArrayList<Cargo> cargosList = new ArrayList<>();
     ArrayList SERVICIOS = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_gasto);
+
+        Intent intent = getIntent();
+        cargosList = (ArrayList<Cargo>) intent.getSerializableExtra("cargos_mapeados");
+        SERVICIOS = (ArrayList) intent.getSerializableExtra("cargos_String");
 
         setContentView(R.layout.activity_nuevo_gasto);
         configureUI();
@@ -60,12 +65,12 @@ public class NuevoGasto extends AppCompatActivity {
                 String fecha = textViewFechaProximoPago.getText().toString();
                 String categoria = spinnerCategoria.getSelectedItem().toString();
 
-                for (Expense cargo : cargosList) {
-                    if (nombre.equals(cargo.getName())){
-                        textViewLinkDeCancelacion.setText(cargo.getUrl());
-                        url = cargo.getUrl();
-                        categoria = cargo.getCategory();
-                        desubscripcion = cargo.getPasosDesuscripcion();
+                for (Cargo cargo : cargosList) {
+                    if (nombre.equals(cargo.nombre)){
+                        textViewLinkDeCancelacion.setText(cargo.url);
+                        url = cargo.url;
+                        categoria = cargo.categoria;
+                        desubscripcion = cargo.pasosDesubscripcion;
 
 
                     }
