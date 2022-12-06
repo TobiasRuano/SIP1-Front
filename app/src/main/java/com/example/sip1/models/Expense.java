@@ -5,16 +5,16 @@ import java.util.Date;
 
 public class Expense implements Serializable {
     private String name;
-    private Double amount;
+    private Price price;
     private Date nextChargeDate;
     private String category;
     private Usage useAmount;
     private String url;
     private String pasosDesubscripcion;
 
-    public Expense(String name, Double amount, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion) {
+    public Expense(String name, Price price, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion) {
         this.name = name;
-        this.amount = amount;
+        this.price = price;
         this.nextChargeDate = nextChargeDate;
         this.category = category;
         this.useAmount = usage;
@@ -30,12 +30,12 @@ public class Expense implements Serializable {
         this.name = name;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Price getAmount() {
+        return price;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setAmount(Price price) {
+        this.price = price;
     }
 
     public Date getNextChargeDate() {
@@ -59,11 +59,11 @@ public class Expense implements Serializable {
     public Usage getUseAmount() { return useAmount; }
 
     public String getPasosDesuscripcion() {
-        return pasosDesuscripcion;
+        return pasosDesubscripcion;
     }
 
     public void setPasosDesuscripcion(String pasosDesuscripcion) {
-        this.pasosDesuscripcion = pasosDesuscripcion;
+        this.pasosDesubscripcion = pasosDesuscripcion;
     }
 
     public void setUrl(String url) {

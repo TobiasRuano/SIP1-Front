@@ -50,7 +50,7 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         holder.title.setText(currentExpense.getName());
         holder.category.setText(currentExpense.getCategory());
-        String totalAmountString = String.format("$%.2f", currentExpense.getAmount());
+        String totalAmountString = String.format("$%d", currentExpense.getAmount().getAmount());
         holder.amount.setText(totalAmountString);
 
         Date fechaVencimiento = calculateNextChargDate(currentExpense.getNextChargeDate());

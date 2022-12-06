@@ -25,21 +25,17 @@ import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
 import com.example.sip1.SaveManager;
 import com.example.sip1.databinding.FragmentHomeBinding;
+import com.example.sip1.models.Cargo;
 import com.example.sip1.models.Expense;
+import com.example.sip1.models.Price;
 import com.example.sip1.models.Usage;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -51,6 +47,11 @@ public class HomeFragment extends Fragment {
     CargoHomeAdapter adapter;
 
     List<Expense> expenses = new ArrayList<>();
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    ArrayList<Cargo> cargosList = new ArrayList<Cargo>();
+    ArrayList SERVICIOS = new ArrayList();
 
     ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
@@ -66,12 +67,15 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Cargos");
 
         List<Expense> returnedExpenses = SaveManager.Shared().readExpenses(getActivity());
         if (returnedExpenses != null) {
             expenses.addAll(returnedExpenses);
         }
 
+        getdata();
         configureUI();
 
         this.checkAndShowServicePopup();
@@ -80,9 +84,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void configureUI() {
-        createNewExpenseButton = (Button) binding.getRoot().findViewById(R.id.nuevo_cargo_button);
-        recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
-        montoMensualTextView = (TextView) binding.getRoot().findViewById(R.id.valor_monto_mensual);
+        createNewExpenseButton = binding.getRoot().findViewById(R.id.nuevo_cargo_button);
+        recyclerView = binding.getRoot().findViewById(R.id.home_cargos_list);
+        montoMensualTextView = binding.getRoot().findViewById(R.id.valor_monto_mensual);
 
         adapter = new CargoHomeAdapter(getContext(), expenses);
         recyclerView.setHasFixedSize(true);
@@ -103,6 +107,26 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void getdata() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                cargosList.clear();
+                for (DataSnapshot caseSnapshot : snapshot.getChildren()) {
+                    System.out.println("Firebase Reading Member2 from "+snapshot.getKey() +", value="+snapshot.getValue());
+                    Cargo cases = caseSnapshot.getValue(Cargo.class);
+                    System.out.println(cases);
+                    cargosList.add(cases);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Fail to get server data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public void addNewExpense(Expense expense) {
         expenses.add(expense);
         SaveManager.Shared().saveExpenses(expenses, getActivity());
@@ -114,7 +138,8 @@ public class HomeFragment extends Fragment {
         Double total = 0.0;
 
         for (int i = 0; i < expenses.size(); i ++) {
-            total += expenses.get(i).getAmount();
+            Price expensePrice = expenses.get(i).getAmount();
+            total += expensePrice.getAmount();
         }
 
         return total;
@@ -163,7 +188,7 @@ public class HomeFragment extends Fragment {
                 String string = "El valor de la barra es: " + percentageUseage + "%";
                 Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
 
-                if (percentageUseage < 40) {
+                if (percentageUseage < 10) {
                     finalExpensePopup.setUseAmount(Usage.LOW);
                 } else if (percentageUseage < 60) {
                     finalExpensePopup.setUseAmount(Usage.MEDIUM);

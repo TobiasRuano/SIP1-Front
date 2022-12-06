@@ -16,7 +16,7 @@ public class OnboardingThird extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_third);
         configureUI();
-        continueButton = (Button)findViewById(R.id.start_onboarding_to_app);
+        continueButton = findViewById(R.id.start_onboarding_to_app);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -27,7 +27,7 @@ public class OnboardingThird extends AppCompatActivity {
         });
     }
     private void configureUI() {
-        textView = (TextView) findViewById(R.id.onboarding_third_text);
+        textView = findViewById(R.id.onboarding_third_text);
         textView.setText("Todo listo!\n\nAhora ya podés empezar a agregar tus gatos recurrentes.");
     }
 }
