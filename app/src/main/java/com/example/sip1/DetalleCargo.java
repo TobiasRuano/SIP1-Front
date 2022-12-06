@@ -38,12 +38,12 @@ public class DetalleCargo extends AppCompatActivity {
     }
 
     private void uiconfiguration() {
-        colorLayout = (ConstraintLayout) findViewById(R.id.detalle_Background);
-        detalleTitulo = (TextView) findViewById(R.id.txt_detalle_titulo_cargo);
-        detalleCategoria = (TextView) findViewById(R.id.txt_detalle_categoria_cargo);
-        detalleMonto = (TextView) findViewById(R.id.txt_detalle_monto_cargo);
-        detalleFechaProximoPago = (TextView) findViewById(R.id.txt_detalle_fecha_proximo_pago);
-        detalleDarBaja = (Button) findViewById(R.id.btn_detalle_darBaja);
+        colorLayout = findViewById(R.id.detalle_Background);
+        detalleTitulo = findViewById(R.id.txt_detalle_titulo_cargo);
+        detalleCategoria = findViewById(R.id.txt_detalle_categoria_cargo);
+        detalleMonto = findViewById(R.id.txt_detalle_monto_cargo);
+        detalleFechaProximoPago = findViewById(R.id.txt_detalle_fecha_proximo_pago);
+        detalleDarBaja = findViewById(R.id.btn_detalle_darBaja);
 
         Intent intent = getIntent();
         expense = (Expense) intent.getSerializableExtra("cargo_elemento");

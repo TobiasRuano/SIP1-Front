@@ -13,7 +13,7 @@ public class MainActivityOnboarding extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activy_onboarding);
-        continueButton = (Button)findViewById(R.id.start_main_onboarding_button);
+        continueButton = findViewById(R.id.start_main_onboarding_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
