@@ -73,6 +73,7 @@ public class HomeFragment extends Fragment {
 
         List<Expense> returnedExpenses = SaveManager.Shared().readExpenses(getActivity());
         if (returnedExpenses != null) {
+            expenses.clear();
             expenses.addAll(returnedExpenses);
         }
 
