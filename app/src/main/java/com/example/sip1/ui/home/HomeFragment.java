@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -121,6 +122,8 @@ public class HomeFragment extends Fragment {
                     cargosList.add(cases);
                     SERVICIOS.add(cases.nombre);
                 }
+
+                updateExpensesPrice();
             }
 
             @Override
@@ -128,6 +131,33 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Fail to get server data.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void updateExpensesPrice() {
+        for(int i = 0; i < expenses.size(); i++) {
+            for(int j = 0; j < cargosList.size(); j++) {
+                Expense expense = expenses.get(i);
+                Cargo servicioMapeado = cargosList.get(j);
+
+                if (Objects.equals(expense.getName(), servicioMapeado.nombre)) {
+                    for(int k = 0; k < servicioMapeado.precios.size(); k ++) {
+                        Price expensePrice = expense.getAmount();
+                        Price servicioPrice = servicioMapeado.precios.get(k);
+
+                        if (expensePrice.getId() == servicioPrice.getId()) {
+                            Price newPrice = expensePrice;
+                            newPrice.setAmount(servicioPrice.getAmount());
+                            expense.setAmount(newPrice);
+                            expenses.remove(expense);
+                            expenses.add(expense);
+                        }
+                    }
+                }
+            }
+        }
+        SaveManager.Shared().saveExpenses(expenses, getActivity());
+
+        adapter.setItems(expenses);
     }
 
     public void addNewExpense(Expense expense) {
