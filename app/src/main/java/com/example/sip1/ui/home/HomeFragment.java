@@ -36,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -169,11 +170,21 @@ public class HomeFragment extends Fragment {
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {
+        Date today = new Date();
+        int month = today.getMonth();
+        int year = today.getYear();
+
         Double total = 0.0;
 
         for (int i = 0; i < expenses.size(); i ++) {
-            Price expensePrice = expenses.get(i).getAmount();
-            total += expensePrice.getAmount();
+            Date expenseDate = expenses.get(i).getNextChargeDate();
+            int expenseMonth = expenseDate.getMonth();
+            int expenseYear = expenseDate.getYear();
+
+            if(month == expenseMonth && year == expenseYear) {
+                Price expensePrice = expenses.get(i).getAmount();
+                total += expensePrice.getAmount();
+            }
         }
 
         return total;
