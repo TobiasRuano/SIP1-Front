@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class NuevoGasto extends AppCompatActivity {
     TextView textViewNombre;
     TextView textViewMonto;
-    TextView textViewTipoDeCargo;
+    TextView checkEsGastoFijo;
     TextView textViewDetalle;
     TextView textViewFechaProximoPago;
     TextView textViewLinkDeCancelacion;
@@ -36,6 +36,7 @@ public class NuevoGasto extends AppCompatActivity {
     AutoCompleteTextView actv;
     String desubscripcion;
     String url;
+    Boolean esGastoFijo = false;
 
     Spinner spinnerCategoria;
     private String datos;
@@ -71,8 +72,6 @@ public class NuevoGasto extends AppCompatActivity {
                         url = cargo.url;
                         categoria = cargo.categoria;
                         desubscripcion = cargo.pasosDesubscripcion;
-
-
                     }
                 }
 
@@ -106,7 +105,11 @@ public class NuevoGasto extends AppCompatActivity {
                         expense = new Expense(actv.getText().toString(),
                                 expensePrice,
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),
-                                spinnerCategoria.getSelectedItem().toString(), Usage.UNKOWN, url, desubscripcion);
+                                spinnerCategoria.getSelectedItem().toString(),
+                                Usage.UNKOWN,
+                                url,
+                                desubscripcion,
+                                esGastoFijo);
 
                         //Salto a Home y paso el objeto expense
                         goToHome(expense);
@@ -141,10 +144,23 @@ public class NuevoGasto extends AppCompatActivity {
         //textViewNombre = (TextView) findViewById(R.id.idTextNombre);
         textViewMonto = findViewById(R.id.idTextMonto);
         spinnerCategoria = findViewById(R.id.idSpinnerCategorias);
-        textViewTipoDeCargo = findViewById(R.id.idTextTipoDeCargo);
+        checkEsGastoFijo = findViewById(R.id.idCheckEsGastoFijo);
         textViewDetalle = findViewById(R.id.idTextDetalle);
         textViewFechaProximoPago = findViewById(R.id.idDateFechaProximoPago);
         textViewLinkDeCancelacion = findViewById(R.id.idTextLinkDeCancelacion);
         agregarButton = findViewById(R.id.Agregar_NuevoCargo_button);
+
+        checkEsGastoFijo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                esGastoFijo = !esGastoFijo;
+
+                if (esGastoFijo) {
+                    textViewLinkDeCancelacion.setVisibility(View.GONE);
+                } else {
+                    textViewLinkDeCancelacion.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 }

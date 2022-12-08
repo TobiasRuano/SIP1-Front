@@ -11,8 +11,9 @@ public class Expense implements Serializable {
     private Usage useAmount;
     private String url;
     private String pasosDesubscripcion;
+    private Boolean esCargoFijo;
 
-    public Expense(String name, Price price, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion) {
+    public Expense(String name, Price price, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion, Boolean esCargoFijo) {
         this.name = name;
         this.price = price;
         this.nextChargeDate = nextChargeDate;
@@ -20,6 +21,7 @@ public class Expense implements Serializable {
         this.useAmount = usage;
         this.url = url;
         this.pasosDesubscripcion = pasosDesubscripcion;
+        this.esCargoFijo = esCargoFijo;
     }
 
     public String getName() {
@@ -62,9 +64,7 @@ public class Expense implements Serializable {
         return pasosDesubscripcion;
     }
 
-    public void setPasosDesuscripcion(String pasosDesuscripcion) {
-        this.pasosDesubscripcion = pasosDesuscripcion;
-    }
+    public void setPasosDesuscripcion(String pasosDesuscripcion) { this.pasosDesubscripcion = pasosDesuscripcion; }
 
     public void setUrl(String url) {
         this.url = url;
@@ -73,4 +73,8 @@ public class Expense implements Serializable {
     public String getUrl() {
         return url;
     }
+
+    public Boolean getEsCargoFijo() { return esCargoFijo; }
+
+    public void setEsCargoFijo(Boolean esCargoFijo) { this.esCargoFijo = esCargoFijo; }
 }

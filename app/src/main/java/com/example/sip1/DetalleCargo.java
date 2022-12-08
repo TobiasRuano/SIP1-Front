@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sip1.models.Expense;
 
@@ -25,19 +27,23 @@ public class DetalleCargo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_cargo);
-        uiconfiguration();
+        uiConfiguration();
         detalleDarBaja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetalleCargo.this, InstruccionesDeCancelacion.class);
-                intent.putExtra("cargo_elemento", expense);
-                startActivity(intent);
+                if(expense.getEsCargoFijo()) {
+                    Toast.makeText(getApplicationContext(), "No podes dar de baja un cargo Fijo.", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(DetalleCargo.this, InstruccionesDeCancelacion.class);
+                    intent.putExtra("cargo_elemento", expense);
+                    startActivity(intent);
+                }
             }
 
         });
     }
 
-    private void uiconfiguration() {
+    private void uiConfiguration() {
         colorLayout = findViewById(R.id.detalle_Background);
         detalleTitulo = findViewById(R.id.txt_detalle_titulo_cargo);
         detalleCategoria = findViewById(R.id.txt_detalle_categoria_cargo);
@@ -63,9 +69,9 @@ public class DetalleCargo extends AppCompatActivity {
         } else {
             colorLayout.setBackgroundResource(R.drawable.layout_border_green);
         }
-    }
 
-    private void dardebaja() {
-
+        if(expense.getEsCargoFijo()) {
+            detalleDarBaja.setBackgroundColor(Color.GRAY);
+        }
     }
 }
