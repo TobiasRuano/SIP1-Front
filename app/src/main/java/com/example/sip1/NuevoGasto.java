@@ -1,9 +1,14 @@
 package com.example.sip1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +28,9 @@ import com.example.sip1.models.Usage;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class NuevoGasto extends AppCompatActivity {
     TextView textViewNombre;
@@ -38,6 +46,11 @@ public class NuevoGasto extends AppCompatActivity {
     String url;
     Boolean esGastoFijo = false;
 
+    private PendingIntent pendingIntent;
+    private final static String CHANNEL_ID = "NOTIFICACION";
+    private final static int NOTIFICACION_ID = 0;
+
+    int diasDiferencia;
     Spinner spinnerCategoria;
     private String datos;
 
@@ -111,6 +124,14 @@ public class NuevoGasto extends AppCompatActivity {
                                 desubscripcion,
                                 esGastoFijo);
 
+                        //Acá se crea la notificacion a mostrar
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            CompletableFuture.delayedExecutor(2, TimeUnit.MINUTES).execute(() -> {
+                                createNotification(expense);
+                            });
+                        }
+
+
                         //Salto a Home y paso el objeto expense
                         goToHome(expense);
                     } catch (ParseException e) {
@@ -120,6 +141,19 @@ public class NuevoGasto extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void createNotification(Expense expense){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_baseline_notification_important_24);
+        builder.setContentTitle("Un gasto esta próximo a vencer.");
+        builder.setContentText("Su gasto: " + expense.getName() + " vencerá el próximo " + expense.getNextChargeDate() + ".");
+        builder.setColor(Color.rgb(100,92,170));
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }
 
     private void goToHome(Expense expense) {
