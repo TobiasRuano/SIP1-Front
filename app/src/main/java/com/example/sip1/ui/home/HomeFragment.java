@@ -61,6 +61,18 @@ public class HomeFragment extends Fragment {
         }
     });
 
+    ActivityResultLauncher<Intent> mGetContentFiltro = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            if (result.getData() != null) {
+                Date fechaDesde = (Date) result.getData().getSerializableExtra("fechaDesde");
+                Date fechaHasta = (Date) result.getData().getSerializableExtra("fechaHasta");
+                String categoria = (String) result.getData().getSerializableExtra("categoria");
+                Double montoMaximo = (Double) result.getData().getSerializableExtra("montoMaximo");
+                filterExpenses(fechaDesde, fechaHasta, categoria, montoMaximo);
+            }
+        }
+    });
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -108,6 +120,29 @@ public class HomeFragment extends Fragment {
         SaveManager.Shared().saveExpenses(expenses, getActivity());
         adapter.setItems(expenses);
         calculateMonthlyAmount(expenses);
+    }
+
+    public void filterButton(){
+        Intent intent = new Intent(getContext(), NuevoGasto.class);
+        mGetContentFiltro.launch(intent);
+    }
+
+    public void filterExpenses(Date fechaDesde, Date fechaHasta, String categoria, Double montoMaximo){
+
+        List<Expense> expensesFiltered = new ArrayList<>();
+        for(Expense e: expenses){
+            if(e.getNextChargeDate().after(fechaDesde) &&
+                    e.getNextChargeDate().before(fechaHasta) &&
+                    e.getCategory() == categoria &&
+                    e.getAmount() < montoMaximo){
+                expensesFiltered.add(e);
+            }
+        }
+        adapter.setItems(expensesFiltered);
+    }
+
+    public void removeFilter(){
+        adapter.setItems(expenses);
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {
