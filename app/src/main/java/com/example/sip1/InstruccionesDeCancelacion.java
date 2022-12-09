@@ -27,7 +27,10 @@ public class InstruccionesDeCancelacion extends AppCompatActivity {
         irALaWebButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(expense.getUrl()));
+                String url = expense.getUrl();
+                if (!url.startsWith("http://") && !url.startsWith("https://"))
+                    url = "http://" + url;
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(browserIntent);
             }
         });
@@ -42,6 +45,8 @@ public class InstruccionesDeCancelacion extends AppCompatActivity {
         expense = (Expense) intent.getSerializableExtra("cargo_elemento");
 
         textViewInstrucciones.setText(expense.getPasosDesuscripcion());
+        String text = expense.getPasosDesuscripcion().replace("\\n", "\n");
+        textViewInstrucciones.setText(text);
     }
 
 }

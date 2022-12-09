@@ -8,49 +8,43 @@
     android:layout_height="fill_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/layout_left_rounded"
             tools:context=".OnboardingSecond">
 
             <TextView
-                android:id="@+id/textView1"
-                android:layout_width="320dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="4dp"
+                android:id="@+id/textViewTitulo"
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
                 android:fontFamily="@font/lekton"
                 android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="#645CAA"
-                android:textSize="24dp"
+                android:text="Sigue estas intrucciones para dar de baja:"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                app:circularflow_radiusInDP="90"
-                app:layout_constraintBottom_toTopOf="@+id/view5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.615"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/view5"
-                android:layout_width="wrap_content"
-                android:layout_height="1400dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/layout_left_rounded"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView1" />
-
             <TextView
                 android:id="@+id/textViewInstrucciones"
-                android:layout_width="350sp"
-                android:layout_height="wrap_content"
+                android:layout_width="354dp"
+                android:layout_height="346dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/lekton"
                 android:gravity="center|left"
                 android:text="1. Ingresa a la web www.tuwebapp.com.
@@ -63,18 +57,18 @@
                             8. Recibiras un mail con la confirmacion. "
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/IrALaWeb_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.571"
+                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView1"
-                app:layout_constraintVertical_bias="0.238" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
 
             <Button
                 android:id="@+id/IrALaWeb_button"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="704dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
                 android:width="200dp"
                 android:height="55dp"
                 android:backgroundTint="#FFFFFF"
@@ -90,24 +84,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewTitulo"
-                android:layout_width="300sp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lekton"
-                android:gravity="center"
-                android:text="Sigue estas intrucciones para dar de baja:"
-                android:textColor="@android:color/white"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/view5"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView1"
-                app:layout_constraintVertical_bias="0.091" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewInstrucciones" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/app_primary"
+            android:clickable="false" />
 
     </LinearLayout>
 </ScrollView>
