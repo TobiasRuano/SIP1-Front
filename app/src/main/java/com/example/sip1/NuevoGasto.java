@@ -48,7 +48,7 @@ public class NuevoGasto extends AppCompatActivity {
 
     private PendingIntent pendingIntent;
     private final static String CHANNEL_ID = "NOTIFICACION";
-    private final static int NOTIFICACION_ID = 0;
+    private static int NOTIFICACION_ID = 0;
 
     int diasDiferencia;
     Spinner spinnerCategoria;
@@ -152,6 +152,7 @@ public class NuevoGasto extends AppCompatActivity {
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
+        NOTIFICACION_ID = (int) (Math.random() * 2147483647);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }

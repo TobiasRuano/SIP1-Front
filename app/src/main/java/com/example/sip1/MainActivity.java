@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PendingIntent pendingIntent;
     private final static String CHANNEL_ID = "notificacion";
-    private final static int NOTIFICACION_ID = 0;
+    private static int NOTIFICACION_ID = 0;
 
     List<Expense> expenses = new ArrayList<>();
 
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
+        NOTIFICACION_ID = (int) (Math.random() * 2147483647);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }
