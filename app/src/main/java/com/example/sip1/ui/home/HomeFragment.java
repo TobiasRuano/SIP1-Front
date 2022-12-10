@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.FlitrosDeGastos;
 import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
 import com.example.sip1.SaveManager;
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     Button createNewExpenseButton;
+    Button filtrarButton;
+    Button eliminarFiltrosButton;
     RecyclerView recyclerView;
     TextView montoMensualTextView;
     CargoHomeAdapter adapter;
@@ -93,6 +96,8 @@ public class HomeFragment extends Fragment {
 
     private void configureUI() {
         createNewExpenseButton = (Button) binding.getRoot().findViewById(R.id.nuevo_cargo_button);
+        filtrarButton = (Button) binding.getRoot().findViewById(R.id.filtrar_button);
+        eliminarFiltrosButton = (Button) binding.getRoot().findViewById(R.id.eliminar_filtros_button);
         recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
         montoMensualTextView = (TextView) binding.getRoot().findViewById(R.id.valor_monto_mensual);
 
@@ -113,6 +118,22 @@ public class HomeFragment extends Fragment {
                 mGetContent.launch(intent);
             }
         });
+
+        filtrarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FlitrosDeGastos.class);
+
+                mGetContentFiltro.launch(intent);
+            }
+        });
+
+        eliminarFiltrosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.setItems(expenses);
+            }
+        });
     }
 
     public void addNewExpense(Expense expense) {
@@ -120,11 +141,6 @@ public class HomeFragment extends Fragment {
         SaveManager.Shared().saveExpenses(expenses, getActivity());
         adapter.setItems(expenses);
         calculateMonthlyAmount(expenses);
-    }
-
-    public void filterButton(){
-        Intent intent = new Intent(getContext(), NuevoGasto.class);
-        mGetContentFiltro.launch(intent);
     }
 
     public void filterExpenses(Date fechaDesde, Date fechaHasta, String categoria, Double montoMaximo){
@@ -139,10 +155,6 @@ public class HomeFragment extends Fragment {
             }
         }
         adapter.setItems(expensesFiltered);
-    }
-
-    public void removeFilter(){
-        adapter.setItems(expenses);
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {

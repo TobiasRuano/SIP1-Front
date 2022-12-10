@@ -94,15 +94,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_home);
         switch (item.getItemId()) {
             case R.id.action_filtro:
                 System.out.println("Filtrandoooo");
-                homeFragment.filterButton();
                 return true;
             case R.id.action_quitar_filtro:
                 System.out.println("Se quito el filtro");
-                homeFragment.removeFilter();
                 return true;
             default:
                 // If we got here, the user's action was not recognized.

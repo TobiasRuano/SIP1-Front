@@ -18,6 +18,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <EditText
+        android:id="@+id/idTextCategoria"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="392dp"
+        android:background="@drawable/edittext_rounded_corners"
+        android:ems="10"
+        android:fontFamily="@font/lekton"
+        android:hint="Categoria*"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#737272"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/view9" />
+
     <TextView
         android:id="@+id/textViewFiltros"
         android:layout_width="wrap_content"
@@ -33,7 +53,7 @@
 
     <EditText
         android:id="@+id/idDateFechaDesde"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="36dp"
@@ -46,14 +66,14 @@
         android:textColor="#000000"
         android:textColorHint="#737272"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view9"
         app:layout_constraintTop_toBottomOf="@+id/textViewFiltros" />
 
     <EditText
         android:id="@+id/idDateFechaHasta"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="36dp"
@@ -66,32 +86,18 @@
         android:textColor="#000000"
         android:textColorHint="#737272"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view9"
         app:layout_constraintTop_toBottomOf="@+id/textViewFiltros" />
-
-    <Spinner
-        android:id="@+id/idSpinnerCategorias"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/edittext_rounded_corners"
-        android:backgroundTint="#FFFFFF"
-        android:tag="@string/droplist_categorias"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idDateFechaDesde" />
 
     <EditText
         android:id="@+id/idTextMontoMaximo"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="316dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"
@@ -100,10 +106,10 @@
         android:textColor="#000000"
         android:textColorHint="#737272"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idSpinnerCategorias" />
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/view9" />
 
     <Button
         android:id="@+id/Filtrar_button"
@@ -118,10 +124,10 @@
         android:textColor="#645CA9"
         app:cornerRadius="50dp"
         app:iconTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view9"
         app:layout_constraintTop_toBottomOf="@+id/idTextMontoMaximo"
         app:layout_constraintVertical_bias="0.745" />
 </androidx.constraintlayout.widget.ConstraintLayout>

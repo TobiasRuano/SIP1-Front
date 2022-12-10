@@ -10,19 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.example.sip1.models.Expense;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class FlitrosDeGastos extends AppCompatActivity {
 
     TextView detalleFechaDesde;
     TextView detalleFechaHasta;
-    Spinner spinnerCategoria;
+    TextView detalleCategoria;
     TextView detalleMontoMaximo;
     Button detalleFiltrar;
 
@@ -41,7 +37,7 @@ public class FlitrosDeGastos extends AppCompatActivity {
                     return;
                 }
 
-                if (spinnerCategoria.getSelectedItem().toString().matches("")) {
+                if (detalleCategoria.toString().matches("")) {
                     Toast.makeText(getApplicationContext(), "Por favor ingrese una categoria", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -67,7 +63,7 @@ public class FlitrosDeGastos extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Por favor verifique la fecha ingresada. Debe tener el siguiente formato: dd/MM/AAAA", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                intent.putExtra("categoria", spinnerCategoria.getSelectedItem().toString());
+                intent.putExtra("categoria", detalleCategoria.toString());
                 intent.putExtra("montoMaximo", Double.parseDouble(detalleMontoMaximo.getText().toString()));
 
                 setResult(Activity.RESULT_OK, intent);
@@ -80,7 +76,7 @@ public class FlitrosDeGastos extends AppCompatActivity {
     private void uiconfiguration() {
         detalleFechaDesde = (TextView) findViewById(R.id.idDateFechaDesde);
         detalleFechaHasta = (TextView) findViewById(R.id.idDateFechaHasta);
-        spinnerCategoria = (Spinner) findViewById(R.id.idSpinnerCategorias);
+        detalleCategoria = (TextView) findViewById(R.id.idTextCategoria);
         detalleMontoMaximo = (TextView) findViewById(R.id.idTextMontoMaximo);
         detalleFiltrar = (Button) findViewById(R.id.Filtrar_button);
     }
