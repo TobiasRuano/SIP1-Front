@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="15dp"
     android:text="TextView"
-    android:textColor="@color/white"
+    android:textColor="@color/black"
+    android:background="@color/white"
     android:textSize="18sp"
     android:textStyle="bold" />
