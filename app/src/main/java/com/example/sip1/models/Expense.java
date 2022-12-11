@@ -12,8 +12,9 @@ public class Expense implements Serializable {
     private String url;
     private String pasosDesubscripcion;
     private Boolean esCargoFijo;
+    private RangoVencimiento rangoVencimiento;
 
-    public Expense(String name, Price price, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion, Boolean esCargoFijo) {
+    public Expense(String name, Price price, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion, Boolean esCargoFijo, RangoVencimiento rangoVencimiento) {
         this.name = name;
         this.price = price;
         this.nextChargeDate = nextChargeDate;
@@ -22,6 +23,31 @@ public class Expense implements Serializable {
         this.url = url;
         this.pasosDesubscripcion = pasosDesubscripcion;
         this.esCargoFijo = esCargoFijo;
+        this.rangoVencimiento = rangoVencimiento;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
+    }
+
+    public String getPasosDesubscripcion() {
+        return pasosDesubscripcion;
+    }
+
+    public void setPasosDesubscripcion(String pasosDesubscripcion) {
+        this.pasosDesubscripcion = pasosDesubscripcion;
+    }
+
+    public RangoVencimiento getRangoVencimiento() {
+        return rangoVencimiento;
+    }
+
+    public void setRangoVencimiento(RangoVencimiento rangoVencimiento) {
+        this.rangoVencimiento = rangoVencimiento;
     }
 
     public String getName() {

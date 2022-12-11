@@ -28,6 +28,7 @@ import com.example.sip1.databinding.FragmentHomeBinding;
 import com.example.sip1.models.Cargo;
 import com.example.sip1.models.Expense;
 import com.example.sip1.models.Price;
+import com.example.sip1.models.RangoVencimiento;
 import com.example.sip1.models.Usage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +37,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -75,7 +78,15 @@ public class HomeFragment extends Fragment {
         List<Expense> returnedExpenses = SaveManager.Shared().readExpenses(getActivity());
         if (returnedExpenses != null) {
             expenses.clear();
+
+            for(int i = 0; i < returnedExpenses.size(); i++) {
+                Expense expense = returnedExpenses.get(i);
+
+                Date nextChargeDate = calculateNextChargDate(expense.getNextChargeDate(), expense.getRangoVencimiento());
+                expense.setNextChargeDate(nextChargeDate);
+            }
             expenses.addAll(returnedExpenses);
+            SaveManager.Shared().saveExpenses(expenses, getActivity());
         }
 
         getdata();
@@ -84,6 +95,40 @@ public class HomeFragment extends Fragment {
         this.checkAndShowServicePopup();
 
         return root;
+    }
+
+    private Date calculateNextChargDate(Date first, RangoVencimiento rango) {
+        Date today = new Date();
+
+        int dateComparison = first.compareTo(today);
+        if (dateComparison == 0) {
+            return today;
+        } else if (dateComparison > 0) {
+            return first;
+        } else {
+            Date returnDate = first;
+
+            while (dateComparison < 0) {
+                GregorianCalendar calendar = new GregorianCalendar();
+                calendar.setTime(returnDate);
+
+                if(rango.getRangoVencimiento().equals("Dia/s")) {
+                    calendar.add(Calendar.DATE, rango.getValue());
+                } else if(rango.getRangoVencimiento().equals("Mes")) {
+                    calendar.add(Calendar.MONTH , rango.getValue());
+                } else if(rango.getRangoVencimiento().equals("Año/s")){
+                    calendar.add(Calendar.YEAR , rango.getValue());
+                } else {
+                    calendar.add(Calendar.MONTH , 1);
+                }
+
+                returnDate = calendar.getTime();
+
+                dateComparison = returnDate.compareTo(today);
+            }
+
+            return returnDate;
+        }
     }
 
     private void configureUI() {
@@ -163,10 +208,16 @@ public class HomeFragment extends Fragment {
     }
 
     public void addNewExpense(Expense expense) {
+        Date nextChargeDate = calculateNextChargDate(expense.getNextChargeDate(), expense.getRangoVencimiento());
+        expense.setNextChargeDate(nextChargeDate);
+
         expenses.add(expense);
         SaveManager.Shared().saveExpenses(expenses, getActivity());
         adapter.setItems(expenses);
-        calculateMonthlyAmount(expenses);
+
+        Double totalAmount = calculateMonthlyAmount(expenses);
+        String totalAmountString = String.format("$ %.2f", totalAmount);
+        montoMensualTextView.setText(totalAmountString);
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {
@@ -191,8 +242,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void checkAndShowServicePopup() {
-        // TODO: este popup no se debe mostrar siempre!!
-
         if (expenses.size() == 0) {
             return;
         }
