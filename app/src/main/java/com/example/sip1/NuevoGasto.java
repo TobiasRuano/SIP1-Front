@@ -219,6 +219,9 @@ public class NuevoGasto extends AppCompatActivity {
                     url = "";
                     categoria = "";
                     desubscripcion = "";
+                    actvMonto.setEnabled(true);
+                    actvMonto.setText(" ");
+                    PRICES.clear();
                 }
 
 
@@ -239,6 +242,7 @@ public class NuevoGasto extends AppCompatActivity {
                 cargarCargosList();
             }
         });
+
     }
 
     private void cargarCargosList() {
@@ -260,7 +264,7 @@ public class NuevoGasto extends AppCompatActivity {
     }
 
     private void cargarAdapterMonto() {
-        actvMonto.setInputType(InputType.TYPE_NULL);
+        actvMonto.setEnabled(false);
         ArrayAdapter<String> adapterMonto = new ArrayAdapter<String>(this, dropdown_item, PRICES);
         actvMonto.setAdapter(adapterMonto);
     }
