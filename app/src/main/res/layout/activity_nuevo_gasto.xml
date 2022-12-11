@@ -40,6 +40,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNuevoGasto" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idTextNombre">
+
+        <AutoCompleteTextView
+            android:id="@+id/idTextMonto"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:hint="Monto*"
+            android:inputType="none|numberDecimal"
+            android:padding="16dp"
+            android:textColor="#000000" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <EditText
         android:id="@+id/idTextDetalle"
         android:layout_width="0dp"
@@ -78,26 +102,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idDateFechaProximoPago" />
-
-    <EditText
-        android:id="@+id/idTextMonto"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/edittext_rounded_corners"
-        android:ems="10"
-        android:fontFamily="@font/lekton"
-        android:hint="Monto*"
-        android:inputType="textPersonName"
-        android:textColor="#000000"
-        android:textColorHint="#737272"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idTextNombre" />
 
     <TextView
         android:id="@+id/textViewNuevoGasto"
@@ -183,6 +187,6 @@
         android:tag="@string/droplist_categorias"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idTextMonto" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
