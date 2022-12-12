@@ -43,6 +43,14 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".FlitrosDeGastos"
+            android:exported="false"
+            android:theme="@style/Theme.SIP1.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".InstruccionesDeCancelacion"
             android:exported="false"
             android:theme="@style/Theme.SIP1.NoActionBar">

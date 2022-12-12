@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -121,6 +123,22 @@ public class MainActivity extends AppCompatActivity {
             if (data != null) {
                 Expense expense = (Expense) data.getSerializableExtra("newExpense");
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filtro:
+                System.out.println("Filtrandoooo");
+                return true;
+            case R.id.action_quitar_filtro:
+                System.out.println("Se quito el filtro");
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -64,7 +64,9 @@ public class Expense implements Serializable {
         return pasosDesubscripcion;
     }
 
-    public void setPasosDesuscripcion(String pasosDesuscripcion) { this.pasosDesubscripcion = pasosDesuscripcion; }
+    public void setPasosDesuscripcion(String pasosDesuscripcion) {
+        this.pasosDesubscripcion = pasosDesuscripcion;
+    }
 
     public void setUrl(String url) {
         this.url = url;
