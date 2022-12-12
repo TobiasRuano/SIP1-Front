@@ -21,6 +21,7 @@ public class DetalleCargo extends AppCompatActivity {
     TextView descripcion;
     TextView detalleMonto;
     TextView detalleFechaProximoPago;
+    TextView proximoRenovarse;
     Button detalleDarBaja;
     Expense expense;
 
@@ -51,6 +52,7 @@ public class DetalleCargo extends AppCompatActivity {
         descripcion = findViewById(R.id.txt_detalle_cargo);
         detalleMonto = findViewById(R.id.txt_detalle_monto_cargo);
         detalleFechaProximoPago = findViewById(R.id.txt_detalle_fecha_proximo_pago);
+        proximoRenovarse = findViewById(R.id.text_proximo_vencer);
         detalleDarBaja = findViewById(R.id.btn_detalle_darBaja);
 
         Intent intent = getIntent();
@@ -74,8 +76,10 @@ public class DetalleCargo extends AppCompatActivity {
             colorLayout.setBackgroundResource(R.drawable.layout_border_red);
         } else if (backgroundType == 1) {
             colorLayout.setBackgroundResource(R.drawable.layout_border_yellow);
+            proximoRenovarse.setVisibility(View.GONE);
         } else {
             colorLayout.setBackgroundResource(R.drawable.layout_border_green);
+            proximoRenovarse.setVisibility(View.GONE);
         }
 
         if(expense.getEsCargoFijo()) {
