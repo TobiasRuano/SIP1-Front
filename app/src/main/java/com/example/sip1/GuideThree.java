@@ -17,7 +17,7 @@ public class GuideThree extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GuideThree.this, OnboardingSecond.class); //change
+                Intent intent = new Intent(GuideThree.this, OnboardingThird.class); //change
                 startActivity(intent);
             }
         });
