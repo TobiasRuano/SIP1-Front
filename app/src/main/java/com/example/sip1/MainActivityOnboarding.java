@@ -17,7 +17,7 @@ public class MainActivityOnboarding extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivityOnboarding.this, OnboardingSecond.class); //change
+                Intent intent = new Intent(MainActivityOnboarding.this, GuideOne.class); //change
                 startActivity(intent);
             }
         });
