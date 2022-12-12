@@ -93,6 +93,7 @@
                     android:textColor="#000000"
                     android:textColorHint="#737272"
                     android:textSize="20sp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/idtiempoEntreVencimientos" />

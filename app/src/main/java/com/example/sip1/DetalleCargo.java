@@ -33,8 +33,11 @@ public class DetalleCargo extends AppCompatActivity {
         detalleDarBaja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String urlCancelacion = expense.getUrl();
                 if(expense.getEsCargoFijo()) {
                     Toast.makeText(getApplicationContext(), "No podes dar de baja un cargo Fijo.", Toast.LENGTH_LONG).show();
+                } else if(urlCancelacion == null || urlCancelacion == "") {
+                    Toast.makeText(getApplicationContext(), "No tenemos informacion sobre como dar de baja este servicio.", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(DetalleCargo.this, InstruccionesDeCancelacion.class);
                     intent.putExtra("cargo_elemento", expense);
@@ -80,6 +83,11 @@ public class DetalleCargo extends AppCompatActivity {
         } else {
             colorLayout.setBackgroundResource(R.drawable.layout_border_green);
             proximoRenovarse.setVisibility(View.GONE);
+        }
+
+        String urlCancelacion = expense.getUrl();
+        if(urlCancelacion == null || urlCancelacion == "") {
+            detalleDarBaja.setBackgroundColor(Color.GRAY);
         }
 
         if(expense.getEsCargoFijo()) {

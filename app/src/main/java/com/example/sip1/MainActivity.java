@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private SaveManager sm;
     private int daysToNotify;
 
     private PendingIntent pendingIntent;
@@ -82,10 +81,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getDaysToNotify() {
-        Date lastNotificationDate = sm.getFecha();
-        Date currentDate = new Date(System.currentTimeMillis());
-
-        daysToNotify = (int) ((lastNotificationDate.getTime() - currentDate.getTime()));
+        Date lastNotificationDate = SaveManager.Shared().getFecha(this);
+        if (lastNotificationDate != null) {
+            Date currentDate = new Date(System.currentTimeMillis());
+            daysToNotify = (int) ((lastNotificationDate.getTime() - currentDate.getTime()));
+        }
     }
 
     private void getLessUsage() {
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
-        sm.setFecha(new Date(System.currentTimeMillis())); //aqui seteo la fecha actual en saveManager para comparar con la próxima noticación
+        SaveManager.Shared().setFecha(new Date(System.currentTimeMillis()), this); //aqui seteo la fecha actual en saveManager para comparar con la próxima noticación
 
         NOTIFICACION_ID = (int) (Math.random() * 2147483647);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
