@@ -125,20 +125,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_filtro:
-                System.out.println("Filtrandoooo");
-                return true;
-            case R.id.action_quitar_filtro:
-                System.out.println("Se quito el filtro");
-                return true;
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

@@ -49,12 +49,13 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     Button createNewExpenseButton;
     Button filtrarButton;
-    Button eliminarFiltrosButton;
     RecyclerView recyclerView;
     TextView montoMensualTextView;
     CargoHomeAdapter adapter;
 
     List<Expense> expenses = new ArrayList<>();
+
+    Boolean estaFiltrando = false;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -149,7 +150,6 @@ public class HomeFragment extends Fragment {
     private void configureUI() {
         createNewExpenseButton = (Button) binding.getRoot().findViewById(R.id.nuevo_cargo_button);
         filtrarButton = (Button) binding.getRoot().findViewById(R.id.filtrar_button);
-        eliminarFiltrosButton = (Button) binding.getRoot().findViewById(R.id.eliminar_filtros_button);
         recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
         montoMensualTextView = (TextView) binding.getRoot().findViewById(R.id.valor_monto_mensual);
 
@@ -173,19 +173,18 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        filtrarButton.setBackgroundResource(R.drawable.group_10);
         filtrarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), FlitrosDeGastos.class);
-
-                mGetContentFiltro.launch(intent);
-            }
-        });
-
-        eliminarFiltrosButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                adapter.setItems(expenses);
+                if(estaFiltrando) {
+                    adapter.setItems(expenses);
+                    estaFiltrando = false;
+                    filtrarButton.setBackgroundResource(R.drawable.group_10);
+                } else {
+                    Intent intent = new Intent(getContext(), FlitrosDeGastos.class);
+                    mGetContentFiltro.launch(intent);
+                }
             }
         });
     }
@@ -267,6 +266,8 @@ public class HomeFragment extends Fragment {
             }
         }
         adapter.setItems(expensesFiltered);
+        estaFiltrando = true;
+        filtrarButton.setBackgroundResource(R.drawable.stop_filter);
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {
