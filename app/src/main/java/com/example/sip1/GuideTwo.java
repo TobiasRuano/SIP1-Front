@@ -17,7 +17,7 @@ public class GuideTwo extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GuideTwo.this, OnboardingSecond.class); //change
+                Intent intent = new Intent(GuideTwo.this, GuideThree.class); //change
                 startActivity(intent);
             }
         });
