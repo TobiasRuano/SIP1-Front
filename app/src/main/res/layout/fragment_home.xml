@@ -73,7 +73,7 @@
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:background="@drawable/layout_left_rounded"
         android:backgroundTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
