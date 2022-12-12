@@ -18,26 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
-        android:id="@+id/idTextCategoria"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="392dp"
-        android:background="@drawable/edittext_rounded_corners"
-        android:ems="10"
-        android:fontFamily="@font/lekton"
-        android:hint="Categoria*"
-        android:inputType="textPersonName"
-        android:textColor="#000000"
-        android:textColorHint="#737272"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view9"
-        app:layout_constraintEnd_toEndOf="@+id/view9"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view9" />
-
     <TextView
         android:id="@+id/textViewFiltros"
         android:layout_width="wrap_content"
@@ -91,13 +71,28 @@
         app:layout_constraintStart_toStartOf="@+id/view9"
         app:layout_constraintTop_toBottomOf="@+id/textViewFiltros" />
 
+    <Spinner
+        android:id="@+id/idSpinnerCategorias"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/edittext_rounded_corners"
+        android:backgroundTint="#FFFFFF"
+        android:tag="@string/droplist_categorias"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idDateFechaDesde" />
+
     <EditText
         android:id="@+id/idTextMontoMaximo"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="316dp"
+        android:layout_marginBottom="324dp"
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:fontFamily="@font/lekton"

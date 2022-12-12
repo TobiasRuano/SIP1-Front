@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment {
         for(Expense e: expenses){
             if(e.getNextChargeDate().after(fechaDesde) &&
                     e.getNextChargeDate().before(fechaHasta) &&
-                    e.getCategory() == categoria &&
+                    e.getCategory().equals(categoria) &&
                     e.getAmount() < montoMaximo){
                 expensesFiltered.add(e);
             }
