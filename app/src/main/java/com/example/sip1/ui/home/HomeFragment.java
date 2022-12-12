@@ -26,22 +26,20 @@ import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
 import com.example.sip1.SaveManager;
 import com.example.sip1.databinding.FragmentHomeBinding;
+import com.example.sip1.models.Cargo;
 import com.example.sip1.models.Expense;
+import com.example.sip1.models.Price;
 import com.example.sip1.models.Usage;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -54,6 +52,11 @@ public class HomeFragment extends Fragment {
     CargoHomeAdapter adapter;
 
     List<Expense> expenses = new ArrayList<>();
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    ArrayList<Cargo> cargosList = new ArrayList<Cargo>();
+    ArrayList SERVICIOS = new ArrayList();
 
     ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
@@ -81,12 +84,16 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Cargos");
 
         List<Expense> returnedExpenses = SaveManager.Shared().readExpenses(getActivity());
         if (returnedExpenses != null) {
+            expenses.clear();
             expenses.addAll(returnedExpenses);
         }
 
+        getdata();
         configureUI();
 
         this.checkAndShowServicePopup();
@@ -114,6 +121,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), NuevoGasto.class);
+                intent.putExtra("cargos_mapeados", cargosList);
+                intent.putExtra("cargos_String", SERVICIOS);
 
                 mGetContent.launch(intent);
             }
@@ -134,6 +143,56 @@ public class HomeFragment extends Fragment {
                 adapter.setItems(expenses);
             }
         });
+    }
+
+    private void getdata() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                cargosList.clear();
+                for (DataSnapshot caseSnapshot : snapshot.getChildren()) {
+                    System.out.println("Firebase Reading Member2 from "+snapshot.getKey() +", value="+snapshot.getValue());
+                    Cargo cases = caseSnapshot.getValue(Cargo.class);
+                    System.out.println(cases);
+                    cargosList.add(cases);
+                    SERVICIOS.add(cases.nombre);
+                }
+
+                updateExpensesPrice();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Fail to get server data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateExpensesPrice() {
+        for(int i = 0; i < expenses.size(); i++) {
+            for(int j = 0; j < cargosList.size(); j++) {
+                Expense expense = expenses.get(i);
+                Cargo servicioMapeado = cargosList.get(j);
+
+                if (Objects.equals(expense.getName(), servicioMapeado.nombre)) {
+                    for(int k = 0; k < servicioMapeado.precios.size(); k ++) {
+                        Price expensePrice = expense.getAmount();
+                        Price servicioPrice = servicioMapeado.precios.get(k);
+
+                        if (expensePrice.getId() == servicioPrice.getId()) {
+                            Price newPrice = expensePrice;
+                            newPrice.setAmount(servicioPrice.getAmount());
+                            expense.setAmount(newPrice);
+                            expenses.remove(expense);
+                            expenses.add(expense);
+                        }
+                    }
+                }
+            }
+        }
+        SaveManager.Shared().saveExpenses(expenses, getActivity());
+
+        adapter.setItems(expenses);
     }
 
     public void addNewExpense(Expense expense) {
@@ -158,10 +217,21 @@ public class HomeFragment extends Fragment {
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {
+        Date today = new Date();
+        int month = today.getMonth();
+        int year = today.getYear();
+
         Double total = 0.0;
 
         for (int i = 0; i < expenses.size(); i ++) {
-            total += expenses.get(i).getAmount();
+            Date expenseDate = expenses.get(i).getNextChargeDate();
+            int expenseMonth = expenseDate.getMonth();
+            int expenseYear = expenseDate.getYear();
+
+            if(month == expenseMonth && year == expenseYear) {
+                Price expensePrice = expenses.get(i).getAmount();
+                total += expensePrice.getAmount();
+            }
         }
 
         return total;
@@ -210,7 +280,7 @@ public class HomeFragment extends Fragment {
                 String string = "El valor de la barra es: " + percentageUseage + "%";
                 Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
 
-                if (percentageUseage < 40) {
+                if (percentageUseage < 10) {
                     finalExpensePopup.setUseAmount(Usage.LOW);
                 } else if (percentageUseage < 60) {
                     finalExpensePopup.setUseAmount(Usage.MEDIUM);

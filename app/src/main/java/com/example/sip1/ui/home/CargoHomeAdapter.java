@@ -16,7 +16,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sip1.DetalleCargo;
+import com.example.sip1.MainActivity;
 import com.example.sip1.R;
+import com.example.sip1.SaveManager;
 import com.example.sip1.models.Expense;
 
 import java.text.SimpleDateFormat;
@@ -50,7 +52,7 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         holder.title.setText(currentExpense.getName());
         holder.category.setText(currentExpense.getCategory());
-        String totalAmountString = String.format("$%.2f", currentExpense.getAmount());
+        String totalAmountString = String.format("$%d", currentExpense.getAmount().getAmount());
         holder.amount.setText(totalAmountString);
 
         Date fechaVencimiento = calculateNextChargDate(currentExpense.getNextChargeDate());
@@ -87,7 +89,8 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
                 notifyDataSetChanged();
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,expenses.size());
-                System.out.println("Se elimino un elemento de la tabla");
+
+                SaveManager.Shared().saveExpenses(expenses, (MainActivity)context);
             }
         });
 

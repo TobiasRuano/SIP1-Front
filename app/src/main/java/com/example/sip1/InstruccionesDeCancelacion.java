@@ -34,9 +34,9 @@ public class InstruccionesDeCancelacion extends AppCompatActivity {
     }
 
     private void uiconfiguration() {
-        textViewTitulo = (TextView) findViewById(R.id.textViewTitulo);
-        textViewInstrucciones = (TextView) findViewById(R.id.textViewInstrucciones);
-        irALaWebButton = (Button) findViewById(R.id.IrALaWeb_button);
+        textViewTitulo = findViewById(R.id.textViewTitulo);
+        textViewInstrucciones = findViewById(R.id.textViewInstrucciones);
+        irALaWebButton = findViewById(R.id.IrALaWeb_button);
 
         Intent intent = getIntent();
         expense = (Expense) intent.getSerializableExtra("cargo_elemento");
