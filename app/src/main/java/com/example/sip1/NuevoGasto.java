@@ -30,20 +30,22 @@ import android.widget.Spinner;
 import com.example.sip1.models.Cargo;
 import com.example.sip1.models.Expense;
 import com.example.sip1.models.Price;
+import com.example.sip1.models.RangoVencimiento;
 import com.example.sip1.models.Usage;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-public class NuevoGasto extends AppCompatActivity {
-    TextView textViewNombre;
+public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    TextView textViewMonto;
     TextView checkEsGastoFijo;
     TextView textViewDetalle;
     TextView textViewFechaProximoPago;
     TextView textViewLinkDeCancelacion;
+    TextView textViewRangoVencimiento;
+    Spinner spinnerRangoVencimiento;
     Button agregarButton;
     Expense expense;
     AutoCompleteTextView actv;
@@ -55,16 +57,16 @@ public class NuevoGasto extends AppCompatActivity {
     String fecha;
     String categoria;
     Boolean esGastoFijo = false;
+    String rangoVencimiento = "";
     Boolean esMapeado = false;
     Price expensePrice;
 
-    private PendingIntent pendingIntent;
     private final static String CHANNEL_ID = "NOTIFICACION";
     private static int NOTIFICACION_ID = 0;
 
-    int diasDiferencia;
+    private static final String[] paths = {"Dia/s", "Mes", "Año/s"};
+
     Spinner spinnerCategoria;
-    private String datos;
 
 
     ArrayList<Cargo> cargosList = new ArrayList<>();
@@ -88,6 +90,7 @@ public class NuevoGasto extends AppCompatActivity {
 
             public void onClick(View view) {
 
+                String rangoValue = textViewRangoVencimiento.getText().toString();
                 nombre = actv.getText().toString();
                 monto = actvMonto.getText().toString();
                 fecha = textViewFechaProximoPago.getText().toString();
@@ -133,10 +136,22 @@ public class NuevoGasto extends AppCompatActivity {
                     return;
                 }
 
+                if (rangoValue.matches("")) {
+                    Toast.makeText(getApplicationContext(), "Por favor ingrese el tiempo entre cobros del servicio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //Formateo las fechas para poder pasarlas y crear Expense
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     try {
+                        RangoVencimiento rango = new RangoVencimiento();
+                        rango.setRangoVencimiento(rangoVencimiento);
+                        rango.setValue(Integer.parseInt(rangoValue));
+
+                        Price expensePrice = new Price();
+                        expensePrice.setAmount(Integer.parseInt(actvMonto.getText().toString()));
+                        expensePrice.setId(0); // TODO: Cambiar este ID
                         expense = new Expense(nombre,
                                 expensePrice,
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),
@@ -144,7 +159,8 @@ public class NuevoGasto extends AppCompatActivity {
                                 Usage.UNKOWN,
                                 url,
                                 desubscripcion,
-                                esGastoFijo);
+                                esGastoFijo,
+                                rango);
 
                         //Acá se crea la notificacion a mostrar
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -198,15 +214,23 @@ public class NuevoGasto extends AppCompatActivity {
         actv = findViewById(R.id.idTextNombre);
         actv.setThreshold(1);//will start working from first character
         actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-        //textViewNombre = (TextView) findViewById(R.id.idTextNombre);
         spinnerCategoria = findViewById(R.id.idSpinnerCategorias);
         checkEsGastoFijo = findViewById(R.id.idCheckEsGastoFijo);
         textViewDetalle = findViewById(R.id.idTextDetalle);
         textViewFechaProximoPago = findViewById(R.id.idDateFechaProximoPago);
         textViewLinkDeCancelacion = findViewById(R.id.idTextLinkDeCancelacion);
+        textViewRangoVencimiento = findViewById(R.id.idtiempoEntreVencimientos);
+        spinnerRangoVencimiento = findViewById(R.id.id_RangoTemporalVencimiento);
         agregarButton = findViewById(R.id.Agregar_NuevoCargo_button);
         actvMonto = findViewById(R.id.idTextMonto);
 
+
+        ArrayAdapter<String>adapterVencimiento = new ArrayAdapter<String>(NuevoGasto.this,
+                android.R.layout.simple_spinner_item,paths);
+
+        adapterVencimiento.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRangoVencimiento.setAdapter(adapterVencimiento);
+        spinnerRangoVencimiento.setOnItemSelectedListener(this);
 
         checkEsGastoFijo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,5 +326,15 @@ public class NuevoGasto extends AppCompatActivity {
         actvMonto.setEnabled(false);
         ArrayAdapter<String> adapterMonto = new ArrayAdapter<String>(this, dropdown_item, PRICES);
         actvMonto.setAdapter(adapterMonto);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        rangoVencimiento = paths[position];
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
