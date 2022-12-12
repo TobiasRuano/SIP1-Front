@@ -9,10 +9,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.sip1.models.Expense;
+import com.example.sip1.models.Usage;
 import com.example.sip1.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -41,16 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
-    private Button btnNotificacion;
     private PendingIntent pendingIntent;
     private final static String CHANNEL_ID = "notificacion";
-    private final static int NOTIFICACION_ID = 0;
+    private static int NOTIFICACION_ID = 0;
 
+    List<Expense> expenses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -71,17 +73,30 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        getLessUsage();
     }
 
-    private void createNotification(){
+    private void getLessUsage() {
+        for(int i = 0; i < expenses.size(); i++) {
+            Expense expense = expenses.get(i);
+            Usage useAmount = expense.getUseAmount();
+            if(useAmount.ordinal() == 1) { //SOLO CUANDO SU USO ES BAJO(1 = LOW) SALTA LA NOTIFICACION
+                notifyLowUsage(expense);
+            }
+        }
+    }
+
+    private void notifyLowUsage(Expense expense){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_baseline_notification_important_24);
-        builder.setContentTitle("Un gasto esta próximo a vencer.");
-        builder.setContentText("Su gasto" + " " + " vencerá el próximo " + " ");
+        builder.setContentTitle("Tenemos una recomendación para vos.");
+        builder.setContentText("Notamos que usás poco: " + expense.getName() + ", lo podés cancelar para tener un ahorro en tus gastos del mes" + ".");
         builder.setColor(Color.rgb(100,92,170));
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
+        NOTIFICACION_ID = (int) (Math.random() * 2147483647);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }
@@ -108,6 +123,22 @@ public class MainActivity extends AppCompatActivity {
             if (data != null) {
                 Expense expense = (Expense) data.getSerializableExtra("newExpense");
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filtro:
+                System.out.println("Filtrandoooo");
+                return true;
+            case R.id.action_quitar_filtro:
+                System.out.println("Se quito el filtro");
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
         }
     }
 }

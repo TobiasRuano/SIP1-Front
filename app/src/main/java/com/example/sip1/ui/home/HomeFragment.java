@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sip1.FlitrosDeGastos;
 import com.example.sip1.NuevoGasto;
 import com.example.sip1.R;
 import com.example.sip1.SaveManager;
@@ -47,6 +48,8 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     Button createNewExpenseButton;
+    Button filtrarButton;
+    Button eliminarFiltrosButton;
     RecyclerView recyclerView;
     TextView montoMensualTextView;
     CargoHomeAdapter adapter;
@@ -63,6 +66,18 @@ public class HomeFragment extends Fragment {
             if (result.getData() != null) {
                 Expense expense = (Expense) result.getData().getSerializableExtra("newExpense");
                 addNewExpense(expense);
+            }
+        }
+    });
+
+    ActivityResultLauncher<Intent> mGetContentFiltro = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            if (result.getData() != null) {
+                Date fechaDesde = (Date) result.getData().getSerializableExtra("fechaDesde");
+                Date fechaHasta = (Date) result.getData().getSerializableExtra("fechaHasta");
+                String categoria = (String) result.getData().getSerializableExtra("categoria");
+                Double montoMaximo = (Double) result.getData().getSerializableExtra("montoMaximo");
+                filterExpenses(fechaDesde, fechaHasta, categoria, montoMaximo);
             }
         }
     });
@@ -132,9 +147,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void configureUI() {
-        createNewExpenseButton = binding.getRoot().findViewById(R.id.nuevo_cargo_button);
-        recyclerView = binding.getRoot().findViewById(R.id.home_cargos_list);
-        montoMensualTextView = binding.getRoot().findViewById(R.id.valor_monto_mensual);
+        createNewExpenseButton = (Button) binding.getRoot().findViewById(R.id.nuevo_cargo_button);
+        filtrarButton = (Button) binding.getRoot().findViewById(R.id.filtrar_button);
+        eliminarFiltrosButton = (Button) binding.getRoot().findViewById(R.id.eliminar_filtros_button);
+        recyclerView = (RecyclerView) binding.getRoot().findViewById(R.id.home_cargos_list);
+        montoMensualTextView = (TextView) binding.getRoot().findViewById(R.id.valor_monto_mensual);
 
         adapter = new CargoHomeAdapter(getContext(), expenses);
         recyclerView.setHasFixedSize(true);
@@ -153,6 +170,22 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("cargos_String", SERVICIOS);
 
                 mGetContent.launch(intent);
+            }
+        });
+
+        filtrarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FlitrosDeGastos.class);
+
+                mGetContentFiltro.launch(intent);
+            }
+        });
+
+        eliminarFiltrosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.setItems(expenses);
             }
         });
     }
@@ -218,6 +251,20 @@ public class HomeFragment extends Fragment {
         Double totalAmount = calculateMonthlyAmount(expenses);
         String totalAmountString = String.format("$ %.2f", totalAmount);
         montoMensualTextView.setText(totalAmountString);
+    }
+
+    public void filterExpenses(Date fechaDesde, Date fechaHasta, String categoria, Double montoMaximo){
+
+        List<Expense> expensesFiltered = new ArrayList<>();
+        for(Expense e: expenses){
+            if(e.getNextChargeDate().after(fechaDesde) &&
+                    e.getNextChargeDate().before(fechaHasta) &&
+                    e.getCategory().equals(categoria) &&
+                    e.getAmount().getAmount() < montoMaximo){
+                expensesFiltered.add(e);
+            }
+        }
+        adapter.setItems(expensesFiltered);
     }
 
     private Double calculateMonthlyAmount(List<Expense> expenses) {

@@ -72,13 +72,33 @@
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="220dp"
         android:background="@drawable/layout_left_rounded"
         android:backgroundTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/filtrar_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:width="200dp"
+        android:height="55dp"
+        android:backgroundTint="#FFFFFF"
+        android:shadowDy="4"
+        android:shadowRadius="4"
+        android:text="Filtrar"
+        android:textColor="#645CA9"
+        app:cornerRadius="50dp"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.503" />
 
     <Button
         android:id="@+id/nuevo_cargo_button"
@@ -95,6 +115,28 @@
         app:iconTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.169" />
+
+    <Button
+        android:id="@+id/eliminar_filtros_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:width="200dp"
+        android:height="55dp"
+        android:backgroundTint="#FFFFFF"
+        android:shadowDy="4"
+        android:shadowRadius="4"
+        android:text="Eliminar Filtros"
+        android:textColor="#645CA9"
+        app:cornerRadius="50dp"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.836" />
 </androidx.constraintlayout.widget.ConstraintLayout>
