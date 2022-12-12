@@ -13,8 +13,9 @@ public class Expense implements Serializable {
     private String pasosDesubscripcion;
     private Boolean esCargoFijo;
     private RangoVencimiento rangoVencimiento;
+    private String descripcion;
 
-    public Expense(String name, Price price, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion, Boolean esCargoFijo, RangoVencimiento rangoVencimiento) {
+    public Expense(String name, Price price, Date nextChargeDate, String category, Usage usage, String url, String pasosDesubscripcion, Boolean esCargoFijo, RangoVencimiento rangoVencimiento, String descripcion) {
         this.name = name;
         this.price = price;
         this.nextChargeDate = nextChargeDate;
@@ -24,6 +25,7 @@ public class Expense implements Serializable {
         this.pasosDesubscripcion = pasosDesubscripcion;
         this.esCargoFijo = esCargoFijo;
         this.rangoVencimiento = rangoVencimiento;
+        this.descripcion = descripcion;
     }
 
     public Price getPrice() {
@@ -105,4 +107,12 @@ public class Expense implements Serializable {
     public Boolean getEsCargoFijo() { return esCargoFijo; }
 
     public void setEsCargoFijo(Boolean esCargoFijo) { this.esCargoFijo = esCargoFijo; }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

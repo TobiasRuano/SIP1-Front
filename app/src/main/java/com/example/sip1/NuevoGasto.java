@@ -8,14 +8,12 @@ import androidx.core.app.NotificationManagerCompat;
 
 import android.app.Activity;
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -96,6 +94,7 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                 fecha = textViewFechaProximoPago.getText().toString();
                 categoria = spinnerCategoria.getSelectedItem().toString();
                 url = textViewLinkDeCancelacion.getText().toString();
+                String descripcion = textViewDetalle.getText().toString();
 
                 if (esMapeado) {
                     for (Cargo cargo : cargosList) {
@@ -160,7 +159,8 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                                 url,
                                 desubscripcion,
                                 esGastoFijo,
-                                rango);
+                                rango,
+                                descripcion);
 
                         //Acá se crea la notificacion a mostrar
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

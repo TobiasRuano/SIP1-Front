@@ -18,6 +18,7 @@ public class DetalleCargo extends AppCompatActivity {
     ConstraintLayout colorLayout;
     TextView detalleTitulo;
     TextView detalleCategoria;
+    TextView descripcion;
     TextView detalleMonto;
     TextView detalleFechaProximoPago;
     Button detalleDarBaja;
@@ -47,6 +48,7 @@ public class DetalleCargo extends AppCompatActivity {
         colorLayout = findViewById(R.id.detalle_Background);
         detalleTitulo = findViewById(R.id.txt_detalle_titulo_cargo);
         detalleCategoria = findViewById(R.id.txt_detalle_categoria_cargo);
+        descripcion = findViewById(R.id.txt_detalle_cargo);
         detalleMonto = findViewById(R.id.txt_detalle_monto_cargo);
         detalleFechaProximoPago = findViewById(R.id.txt_detalle_fecha_proximo_pago);
         detalleDarBaja = findViewById(R.id.btn_detalle_darBaja);
@@ -61,6 +63,12 @@ public class DetalleCargo extends AppCompatActivity {
         detalleCategoria.setText(expense.getCategory());
         detalleMonto.setText(amount);
         detalleFechaProximoPago.setText(date);
+        String descripcionString = expense.getDescripcion();
+        if (descripcionString == null) {
+            descripcion.setVisibility(View.GONE);
+        } else {
+            descripcion.setText(expense.getDescripcion());
+        }
 
         if (backgroundType == 0) {
             colorLayout.setBackgroundResource(R.drawable.layout_border_red);
