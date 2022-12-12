@@ -13,11 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.List;
 
 public class SaveManager {
 
     private static SaveManager instance = null;
+    private static Date fechaNotificacion = new Date();
 
     private SaveManager() {}
 
@@ -26,6 +28,14 @@ public class SaveManager {
             instance = new SaveManager();
         }
         return instance;
+    }
+
+    public Date getFecha(){
+        return fechaNotificacion;
+    }
+
+    public void setFecha(Date date){
+        fechaNotificacion = date;
     }
 
     public void saveExpenses(List<Expense> expenses, Activity activity) {//saves expenses into fileName (data.bin)

@@ -37,12 +37,15 @@ import com.example.sip1.databinding.ActivityMainBinding;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private SaveManager sm;
+    private int daysToNotify;
 
     private PendingIntent pendingIntent;
     private final static String CHANNEL_ID = "notificacion";
@@ -74,15 +77,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        getDaysToNotify();
         getLessUsage();
     }
 
+    private void getDaysToNotify() {
+        Date lastNotificationDate = sm.getFecha();
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        daysToNotify = (int) ((lastNotificationDate.getTime() - currentDate.getTime()));
+    }
+
     private void getLessUsage() {
-        for(int i = 0; i < expenses.size(); i++) {
-            Expense expense = expenses.get(i);
-            Usage useAmount = expense.getUseAmount();
-            if(useAmount.ordinal() == 1) { //SOLO CUANDO SU USO ES BAJO(1 = LOW) SALTA LA NOTIFICACION
-                notifyLowUsage(expense);
+        if( daysToNotify == 15) { //SOLO CUANDO HAN PASADO 15 DÍAS SE MOSTRARA OTRA NOTIFICACION EN CASO QUE EXISTA UN GASTO CON POCO USO;
+            for(int i = 0; i < expenses.size(); i++) {
+                Expense expense = expenses.get(i);
+                Usage useAmount = expense.getUseAmount();
+                if(useAmount.ordinal() == 1) { //SOLO CUANDO SU USO ES BAJO(1 = LOW) SALTA LA NOTIFICACION
+                    notifyLowUsage(expense);
+                }
             }
         }
     }
@@ -95,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setColor(Color.rgb(100,92,170));
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setDefaults(Notification.DEFAULT_SOUND);
+
+        sm.setFecha(new Date(System.currentTimeMillis())); //aqui seteo la fecha actual en saveManager para comparar con la próxima noticación
 
         NOTIFICACION_ID = (int) (Math.random() * 2147483647);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
