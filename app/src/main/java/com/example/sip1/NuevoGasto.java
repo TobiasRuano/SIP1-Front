@@ -57,7 +57,6 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
     Boolean esGastoFijo = false;
     String rangoVencimiento = "";
     Boolean esMapeado = false;
-    Price expensePrice;
 
     private final static String CHANNEL_ID = "NOTIFICACION";
     private static int NOTIFICACION_ID = 0;
@@ -96,6 +95,8 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                 url = textViewLinkDeCancelacion.getText().toString();
                 String descripcion = textViewDetalle.getText().toString();
 
+                Price expensePrice = new Price();
+
                 if (esMapeado) {
                     for (Cargo cargo : cargosList) {
                         if (nombre.equals(cargo.nombre)) {
@@ -103,17 +104,25 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                             for (Price price : cargo.precios) {
                                 if (Integer.parseInt(monto) == price.getAmount()){
                                     expensePrice = price;
+                                } else {
+                                    categoria = "Entretenimiento";
+                                    String montoString = actvMonto.getText().toString().replace(" ", "");
+                                    expensePrice.setAmount(Integer.parseInt(montoString));
+                                    expensePrice.setId(0);
                                 }
                             }
-
+                        } else {
+                            categoria = "Entretenimiento";
+                            String montoString = actvMonto.getText().toString().replace(" ", "");
+                            expensePrice.setAmount(Integer.parseInt(montoString));
+                            expensePrice.setId(0);
                         }
                     }
                 } else {
-                    expensePrice = new Price();
-                    expensePrice.setAmount(Integer.parseInt(actvMonto.getText().toString()));
+                    String montoString = actvMonto.getText().toString().replace(" ", "");
+                    expensePrice.setAmount(Integer.parseInt(montoString));
                     expensePrice.setId(0);
                 }
-
 
                 if (nombre.matches("")) {
                     Toast.makeText(getApplicationContext(), "Por favor ingrese el nombre de un cargo", Toast.LENGTH_SHORT).show();
@@ -148,9 +157,6 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                         rango.setRangoVencimiento(rangoVencimiento);
                         rango.setValue(Integer.parseInt(rangoValue));
 
-                        Price expensePrice = new Price();
-                        expensePrice.setAmount(Integer.parseInt(actvMonto.getText().toString()));
-                        expensePrice.setId(0); // TODO: Cambiar este ID
                         expense = new Expense(nombre,
                                 expensePrice,
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),

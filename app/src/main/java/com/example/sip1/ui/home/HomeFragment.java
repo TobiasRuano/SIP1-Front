@@ -329,8 +329,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 dialog.dismiss();
                 Integer percentageUseage = seekBar.getProgress();
-                String string = "El valor de la barra es: " + percentageUseage + "%";
-                Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
 
                 if (percentageUseage < 10) {
                     finalExpensePopup.setUseAmount(Usage.LOW);
