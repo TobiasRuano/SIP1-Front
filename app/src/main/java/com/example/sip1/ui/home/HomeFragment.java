@@ -228,6 +228,8 @@ public class HomeFragment extends Fragment {
                             Price newPrice = expensePrice;
                             newPrice.setAmount(servicioPrice.getAmount());
                             expense.setAmount(newPrice);
+                            expense.setPasosDesuscripcion(servicioMapeado.pasosDesubscripcion);
+
                             expenses.remove(expense);
                             expenses.add(expense);
                         }
