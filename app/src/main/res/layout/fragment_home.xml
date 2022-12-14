@@ -50,7 +50,7 @@
                     android:layout_height="36dp"
                     android:fontFamily="@font/lekton"
                     android:gravity="center"
-                    android:text="Monto Mensual"
+                    android:text="Gastos del Mes:"
                     android:textColor="#FFFFFF"
                     android:textSize="24dp"
                     android:textStyle="bold" />
