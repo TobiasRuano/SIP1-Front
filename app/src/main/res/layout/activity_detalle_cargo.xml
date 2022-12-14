@@ -62,7 +62,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/txt_detalle_titulo_cargo"
@@ -117,11 +121,11 @@
                         android:text="Este es una descripcion del cargo"
                         android:textAlignment="center"
                         android:textColor="#645CAA"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:orientation="horizontal">
@@ -134,21 +138,21 @@
                             android:layout_marginTop="27dp"
                             android:layout_marginBottom="53dp"
                             android:fontFamily="@font/lekton"
-                            android:text="Próximo pago:"
+                            android:text="Fecha Vto:"
                             android:textAlignment="center"
                             android:textColor="#645CAA"
                             android:textSize="26dp" />
 
                         <TextView
                             android:id="@+id/txt_detalle_fecha_proximo_pago"
-                            android:layout_width="150dp"
-                            android:layout_height="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
                             android:layout_marginStart="28dp"
                             android:layout_marginTop="27dp"
                             android:layout_marginEnd="27dp"
                             android:layout_marginBottom="53dp"
                             android:fontFamily="@font/lekton"
-                            android:text="23/10/2022"
+                            android:text="01/01/2022"
                             android:textAlignment="center"
                             android:textColor="#645CAA"
                             android:textSize="26dp" />

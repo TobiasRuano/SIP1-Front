@@ -44,7 +44,7 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
-                    android:layout_width="273dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="0dp"
@@ -123,7 +123,7 @@
 
                     <TextView
                         android:id="@+id/precio_list_element_cargo"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:fontFamily="@font/lekton"

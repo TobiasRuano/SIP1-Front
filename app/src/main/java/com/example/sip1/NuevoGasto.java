@@ -51,7 +51,7 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
     String desubscripcion;
     String url;
     String nombre;
-    String monto;
+    String monto = "0";
     String fecha;
     String categoria;
     Boolean esGastoFijo = false;
@@ -69,6 +69,7 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
     ArrayList<Cargo> cargosList = new ArrayList<>();
     ArrayList SERVICIOS = new ArrayList();
     ArrayList PRICES = new ArrayList();
+    ArrayList PRICESNUMBER = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,15 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
 
                 String rangoValue = textViewRangoVencimiento.getText().toString();
                 nombre = actv.getText().toString();
-                monto = actvMonto.getText().toString();
+
+                String value = actvMonto.getText().toString();
+                for(int i = 0; i < PRICESNUMBER.size(); i ++) {
+                    int element = (int) PRICESNUMBER.get(i);
+                    if(value.contains(Integer.toString(element))) {
+                        monto = Integer.toString(element);
+                    }
+                }
+
                 fecha = textViewFechaProximoPago.getText().toString();
                 categoria = spinnerCategoria.getSelectedItem().toString();
                 url = textViewLinkDeCancelacion.getText().toString();
@@ -104,21 +113,13 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                             for (Price price : cargo.precios) {
                                 if (Integer.parseInt(monto) == price.getAmount()){
                                     expensePrice = price;
-                                } else {
-                                    categoria = "Entretenimiento";
-                                    String montoString = actvMonto.getText().toString().replace(" ", "");
-                                    expensePrice.setAmount(Integer.parseInt(montoString));
-                                    expensePrice.setId(0);
                                 }
                             }
-                        } else {
-                            categoria = "Entretenimiento";
-                            String montoString = actvMonto.getText().toString().replace(" ", "");
-                            expensePrice.setAmount(Integer.parseInt(montoString));
-                            expensePrice.setId(0);
                         }
                     }
-                } else {
+                }
+
+                if(expensePrice.getAmount() == 0) {
                     String montoString = actvMonto.getText().toString().replace(" ", "");
                     expensePrice.setAmount(Integer.parseInt(montoString));
                     expensePrice.setId(0);
@@ -266,8 +267,11 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                         categoria = cargo.categoria;
                         desubscripcion = cargo.pasosDesubscripcion;
                         PRICES.clear();
+                        PRICESNUMBER.clear();
                         for (Price price: cargo.precios){
-                            PRICES.add(price.getAmount());
+                            String priceType = price.getDescription() + ": $" + price.getAmount();
+                            PRICES.add(priceType);
+                            PRICESNUMBER.add(price.getAmount());
                         }
                         cargarAdapterMonto();
                         esMapeado = true;
@@ -287,6 +291,7 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                     actvMonto.setEnabled(true);
                     actvMonto.setText(" ");
                     PRICES.clear();
+                    PRICESNUMBER.clear();
                 }
 
 
@@ -318,12 +323,13 @@ public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemS
                 categoria = cargo.categoria;
                 desubscripcion = cargo.pasosDesubscripcion;
                 PRICES.clear();
+                PRICESNUMBER.clear();
                 for (Price price: cargo.precios){
-                    PRICES.add(price.getAmount());
+                    String priceType = price.getDescription() + ": $" + price.getAmount();
+                    PRICES.add(priceType);
+                    PRICESNUMBER.add(price.getAmount());
                 }
                 cargarAdapterMonto();
-
-
             }
         }
     }
