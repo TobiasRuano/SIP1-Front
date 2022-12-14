@@ -17,7 +17,7 @@ public class OnboardingSecond extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_second);
         configureUI();
-        continueButton = (Button)findViewById(R.id.start_onboarding_button3);
+        continueButton = findViewById(R.id.IrALaWeb_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,15 +28,15 @@ public class OnboardingSecond extends AppCompatActivity {
     }
 
     private void configureUI() {
-        textView = (TextView) findViewById(R.id.onbaording_second_text);
+        textView = findViewById(R.id.textView1);
         textView.setText("Configura tus montos por categoría");
-        textView = (TextView) findViewById(R.id.categoria_onboarding_0);
+        textView = findViewById(R.id.categoria_onboarding_0);
         textView.setText("Entretenimiento");
-        textView = (TextView) findViewById(R.id.categoria_onboarding_2);
+        textView = findViewById(R.id.categoria_onboarding_2);
         textView.setText("Hogar");
-        textView = (TextView) findViewById(R.id.categoria_onboarding_3);
+        textView = findViewById(R.id.categoria_onboarding_3);
         textView.setText("Salud");
-        textView = (TextView) findViewById(R.id.categoria_onboarding_4);
+        textView = findViewById(R.id.categoria_onboarding_4);
         textView.setText("Vehiculo");
 
     }

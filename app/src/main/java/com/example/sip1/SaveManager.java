@@ -13,11 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.List;
 
 public class SaveManager {
 
     private static SaveManager instance = null;
+    private static Date fechaNotificacion = new Date();
 
     private SaveManager() {}
 
@@ -26,6 +28,58 @@ public class SaveManager {
             instance = new SaveManager();
         }
         return instance;
+    }
+
+    public void setFecha(Date date, Activity activity) {//saves expenses into fileName (data.bin)
+        ObjectOutputStream oos = null;
+        try {
+            File file = new File(activity.getFilesDir().toString(), "date.bin");
+            file.createNewFile();
+            FileOutputStream fos = activity.openFileOutput("date.bin", Context.MODE_PRIVATE);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(date);
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException err) {
+            Toast.makeText(activity, "Something went wrong while saving", Toast.LENGTH_SHORT).show();
+        } catch (Exception abcd) {
+            Toast.makeText(activity, "Something went wrong while saving 2.0", Toast.LENGTH_SHORT).show();
+        }
+        finally {//makes sure to close the ObjectOutputStream
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public Date getFecha(Activity activity) {
+        ObjectInputStream ois = null;
+        try {
+            File file = new File(activity.getFilesDir().toString()+"/"+"date.bin");
+            if (file.exists()) {
+                ois = new ObjectInputStream(new FileInputStream(file));
+                Date temp = (Date)ois.readObject();
+                ois.close();
+                return temp;
+            } else {
+                return null;
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (ois != null) {
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void saveExpenses(List<Expense> expenses, Activity activity) {//saves expenses into fileName (data.bin)

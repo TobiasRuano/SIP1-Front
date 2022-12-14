@@ -16,13 +16,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sip1.DetalleCargo;
+import com.example.sip1.MainActivity;
 import com.example.sip1.R;
+import com.example.sip1.SaveManager;
 import com.example.sip1.models.Expense;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -50,15 +50,15 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
 
         holder.title.setText(currentExpense.getName());
         holder.category.setText(currentExpense.getCategory());
-        String totalAmountString = String.format("$%.2f", currentExpense.getAmount());
+        String totalAmountString = String.format("$%d", currentExpense.getAmount().getAmount());
         holder.amount.setText(totalAmountString);
 
-        Date fechaVencimiento = calculateNextChargDate(currentExpense.getNextChargeDate());
+        Date fechaVencimiento = currentExpense.getNextChargeDate();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(fechaVencimiento);
         holder.nextChargeDate.setText(strDate);
 
-        selectCardColor(holder, calculateNextChargDate(currentExpense.getNextChargeDate()));
+        selectCardColor(holder, currentExpense.getNextChargeDate());
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -87,7 +87,8 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
                 notifyDataSetChanged();
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,expenses.size());
-                System.out.println("Se elimino un elemento de la tabla");
+
+                SaveManager.Shared().saveExpenses(expenses, (MainActivity)context);
             }
         });
 
@@ -108,31 +109,6 @@ public class CargoHomeAdapter extends RecyclerView.Adapter<CargoHomeAdapter.Card
     public void setItems(List<Expense> items){
         expenses = items;
         notifyDataSetChanged();
-    }
-
-    private Date calculateNextChargDate(Date first) {
-        Date today = new Date();
-
-        int dateComparison = first.compareTo(today);
-        if (dateComparison == 0) {
-            return today;
-        } else if (dateComparison > 0) {
-            return first;
-        } else {
-            Date returnDate = first;
-
-            while (dateComparison < 0) {
-                GregorianCalendar calendar = new GregorianCalendar();
-                calendar.setTime(returnDate);
-                calendar.add(Calendar.MONTH , 1);
-
-                returnDate = calendar.getTime();
-
-                dateComparison = returnDate.compareTo(today);
-            }
-
-            return returnDate;
-        }
     }
 
     // Aca es donde se cambia el color dependiendo de la cercania de la fecha del cargo

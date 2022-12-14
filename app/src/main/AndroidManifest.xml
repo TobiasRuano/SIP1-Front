@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SIP1"
         tools:targetApi="31">
+        <activity
+            android:name=".GuideThree"
+            android:exported="false"
+            android:theme="@style/Theme.SIP1.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".GuideTwo"
+            android:exported="false"
+            android:theme="@style/Theme.SIP1.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".GuideOne"
+            android:exported="false"
+            android:theme="@style/Theme.SIP1.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Splash"
             android:exported="true">
@@ -36,6 +62,22 @@
         </activity>
         <activity
             android:name=".NuevoGasto"
+            android:exported="false"
+            android:theme="@style/Theme.SIP1.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".FlitrosDeGastos"
+            android:exported="false"
+            android:theme="@style/Theme.SIP1.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".InstruccionesDeCancelacion"
             android:exported="false"
             android:theme="@style/Theme.SIP1.NoActionBar">
             <meta-data

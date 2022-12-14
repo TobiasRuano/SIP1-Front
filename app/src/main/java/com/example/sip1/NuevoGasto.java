@@ -1,15 +1,22 @@
 package com.example.sip1;
 
-import androidx.annotation.NonNull;
+import static com.example.sip1.R.layout.dropdown_item;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,52 +25,60 @@ import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.sip1.models.Cargo;
 import com.example.sip1.models.Expense;
+import com.example.sip1.models.Price;
+import com.example.sip1.models.RangoVencimiento;
 import com.example.sip1.models.Usage;
 
 import java.text.ParseException;
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.database.ValueEventListener;
-
-public class NuevoGasto extends AppCompatActivity {
-    TextView textViewNombre;
+public class NuevoGasto extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView textViewMonto;
-    TextView textViewTipoDeCargo;
+    TextView checkEsGastoFijo;
     TextView textViewDetalle;
     TextView textViewFechaProximoPago;
     TextView textViewLinkDeCancelacion;
+    TextView textViewRangoVencimiento;
+    Spinner spinnerRangoVencimiento;
     Button agregarButton;
     Expense expense;
     AutoCompleteTextView actv;
+    AutoCompleteTextView actvMonto;
     String desubscripcion;
     String url;
+    String nombre;
+    String monto = "0";
+    String fecha;
+    String categoria;
+    Boolean esGastoFijo = false;
+    String rangoVencimiento = "";
+    Boolean esMapeado = false;
+
+    private final static String CHANNEL_ID = "NOTIFICACION";
+    private static int NOTIFICACION_ID = 0;
+
+    private static final String[] paths = {"Dia/s", "Mes", "Año/s"};
 
     Spinner spinnerCategoria;
-    private String datos;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    ArrayList<Cargos> cargosList = new ArrayList<>();
+
+    ArrayList<Cargo> cargosList = new ArrayList<>();
     ArrayList SERVICIOS = new ArrayList();
-
+    ArrayList PRICES = new ArrayList();
+    ArrayList PRICESNUMBER = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_gasto);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Cargos");
-        // calling method
-        // for getting data.
-        getdata();
+
+        Intent intent = getIntent();
+        cargosList = (ArrayList<Cargo>) intent.getSerializableExtra("cargos_mapeados");
+        SERVICIOS = (ArrayList) intent.getSerializableExtra("cargos_String");
 
         setContentView(R.layout.activity_nuevo_gasto);
         configureUI();
@@ -73,22 +88,42 @@ public class NuevoGasto extends AppCompatActivity {
 
             public void onClick(View view) {
 
-                String nombre = actv.getText().toString();
-                String monto = textViewMonto.getText().toString();
-                String fecha = textViewFechaProximoPago.getText().toString();
-                String categoria = spinnerCategoria.getSelectedItem().toString();
+                String rangoValue = textViewRangoVencimiento.getText().toString();
+                nombre = actv.getText().toString();
 
-                for (Cargos cargo : cargosList) {
-                    if (nombre.equals(cargo.getNombre())){
-                        textViewLinkDeCancelacion.setText(cargo.getURL());
-                        url = cargo.getURL();
-                        categoria = cargo.getCategoria();
-                        desubscripcion = cargo.getPasosDesubscripcion();
-
-
+                String value = actvMonto.getText().toString();
+                for(int i = 0; i < PRICESNUMBER.size(); i ++) {
+                    int element = (int) PRICESNUMBER.get(i);
+                    if(value.contains(Integer.toString(element))) {
+                        monto = Integer.toString(element);
                     }
                 }
 
+                fecha = textViewFechaProximoPago.getText().toString();
+                categoria = spinnerCategoria.getSelectedItem().toString();
+                url = textViewLinkDeCancelacion.getText().toString();
+                String descripcion = textViewDetalle.getText().toString();
+
+                Price expensePrice = new Price();
+
+                if (esMapeado) {
+                    for (Cargo cargo : cargosList) {
+                        if (nombre.equals(cargo.nombre)) {
+                            categoria = cargo.categoria;
+                            for (Price price : cargo.precios) {
+                                if (Integer.parseInt(monto) == price.getAmount()){
+                                    expensePrice = price;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(expensePrice.getAmount() == 0) {
+                    String montoString = actvMonto.getText().toString().replace(" ", "");
+                    expensePrice.setAmount(Integer.parseInt(montoString));
+                    expensePrice.setId(0);
+                }
 
                 if (nombre.matches("")) {
                     Toast.makeText(getApplicationContext(), "Por favor ingrese el nombre de un cargo", Toast.LENGTH_SHORT).show();
@@ -110,14 +145,37 @@ public class NuevoGasto extends AppCompatActivity {
                     return;
                 }
 
+                if (rangoValue.matches("")) {
+                    Toast.makeText(getApplicationContext(), "Por favor ingrese el tiempo entre cobros del servicio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //Formateo las fechas para poder pasarlas y crear Expense
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     try {
-                        expense = new Expense(actv.getText().toString(),
-                                Double.parseDouble(textViewMonto.getText().toString()),
+                        RangoVencimiento rango = new RangoVencimiento();
+                        rango.setRangoVencimiento(rangoVencimiento);
+                        rango.setValue(Integer.parseInt(rangoValue));
+
+                        expense = new Expense(nombre,
+                                expensePrice,
                                 formatter.parse(textViewFechaProximoPago.getText().toString()),
-                                spinnerCategoria.getSelectedItem().toString(), Usage.UNKOWN, url, desubscripcion);
+                                spinnerCategoria.getSelectedItem().toString(),
+                                Usage.UNKOWN,
+                                url,
+                                desubscripcion,
+                                esGastoFijo,
+                                rango,
+                                descripcion);
+
+                        //Acá se crea la notificacion a mostrar
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            CompletableFuture.delayedExecutor(2, TimeUnit.MINUTES).execute(() -> {
+                                createNotification(expense);
+                            });
+                        }
+
 
                         //Salto a Home y paso el objeto expense
                         goToHome(expense);
@@ -130,62 +188,19 @@ public class NuevoGasto extends AppCompatActivity {
         });
     }
 
-    private void getdata() {
+    private void createNotification(Expense expense){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_baseline_notification_important_24);
+        builder.setContentTitle("Un gasto esta próximo a vencer.");
+        builder.setContentText("Su gasto: " + expense.getName() + " vencerá el próximo " + expense.getNextChargeDate() + ".");
+        builder.setColor(Color.rgb(100,92,170));
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setDefaults(Notification.DEFAULT_SOUND);
 
-        // calling add value event listener method
-        // for getting the values from database.
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                cargosList.clear();
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    Cargos cargos = postSnapshot.getValue(Cargos.class);
-                    cargosList.add(cargos);
-                    SERVICIOS.add(cargos.getNombre());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // calling on cancelled method when we receive
-                // any error or we are not able to get the data.
-                Toast.makeText(NuevoGasto.this, "Fail to get data.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        NOTIFICACION_ID = (int) (Math.random() * 2147483647);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }
-
-    @IgnoreExtraProperties
-    private static class Cargos {
-        private String Categoria;
-        private String Nombre;
-        private String PasosDesubscripcion;
-        private String URL;
-
-        public Cargos() {  }
-
-        public Cargos(String Categoria, String Nombre, String PasosDesubscripcion, String URL) {
-            this.Categoria = Categoria;
-            this.Nombre = Nombre;
-            this.PasosDesubscripcion = PasosDesubscripcion;
-            this.URL = URL;
-        }
-        public String getCategoria(){
-            return Categoria;
-        }
-
-        public String getNombre(){
-            return Nombre;
-        }
-
-        public String getPasosDesubscripcion() {
-            return PasosDesubscripcion;
-        }
-
-        public String getURL() {
-            return URL;
-        }
-    }
-
 
     private void goToHome(Expense expense) {
         Intent intent = new Intent(NuevoGasto.this, MainActivity.class);
@@ -203,16 +218,135 @@ public class NuevoGasto extends AppCompatActivity {
 
     private void configureUI() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String> (this, android.R.layout.select_dialog_item, SERVICIOS);
-        actv = (AutoCompleteTextView) findViewById(R.id.idTextNombre);
+        actv = findViewById(R.id.idTextNombre);
         actv.setThreshold(1);//will start working from first character
         actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-        //textViewNombre = (TextView) findViewById(R.id.idTextNombre);
-        textViewMonto = (TextView) findViewById(R.id.idTextMonto);
-        spinnerCategoria = (Spinner) findViewById(R.id.idSpinnerCategorias);
-        textViewTipoDeCargo = (TextView) findViewById(R.id.idTextTipoDeCargo);
-        textViewDetalle = (TextView) findViewById(R.id.idTextDetalle);
-        textViewFechaProximoPago = (TextView) findViewById(R.id.idDateFechaProximoPago);
-        textViewLinkDeCancelacion = (TextView) findViewById(R.id.idTextLinkDeCancelacion);
-        agregarButton = (Button) findViewById(R.id.Agregar_NuevoCargo_button);
+        spinnerCategoria = findViewById(R.id.idSpinnerCategorias);
+        checkEsGastoFijo = findViewById(R.id.idCheckEsGastoFijo);
+        textViewDetalle = findViewById(R.id.idTextDetalle);
+        textViewFechaProximoPago = findViewById(R.id.idDateFechaProximoPago);
+        textViewLinkDeCancelacion = findViewById(R.id.idTextLinkDeCancelacion);
+        textViewRangoVencimiento = findViewById(R.id.idtiempoEntreVencimientos);
+        spinnerRangoVencimiento = findViewById(R.id.id_RangoTemporalVencimiento);
+        agregarButton = findViewById(R.id.Agregar_NuevoCargo_button);
+        actvMonto = findViewById(R.id.idTextMonto);
+
+
+        ArrayAdapter<String>adapterVencimiento = new ArrayAdapter<String>(NuevoGasto.this,
+                android.R.layout.simple_spinner_item,paths);
+
+        adapterVencimiento.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRangoVencimiento.setAdapter(adapterVencimiento);
+        spinnerRangoVencimiento.setOnItemSelectedListener(this);
+
+        checkEsGastoFijo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                esGastoFijo = !esGastoFijo;
+
+                if (esGastoFijo) {
+                    textViewLinkDeCancelacion.setVisibility(View.GONE);
+                } else {
+                    textViewLinkDeCancelacion.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                for (Cargo cargo : cargosList) {
+                    if (charSequence.toString().equals(cargo.nombre)){
+                        textViewLinkDeCancelacion.setText(cargo.url);
+                        url = cargo.url;
+                        categoria = cargo.categoria;
+                        desubscripcion = cargo.pasosDesubscripcion;
+                        PRICES.clear();
+                        PRICESNUMBER.clear();
+                        for (Price price: cargo.precios){
+                            String priceType = price.getDescription() + ": $" + price.getAmount();
+                            PRICES.add(priceType);
+                            PRICESNUMBER.add(price.getAmount());
+                        }
+                        cargarAdapterMonto();
+                        esMapeado = true;
+                        break;
+                    } else {
+                        esMapeado = false;
+                    }
+                }
+                if (esMapeado) {
+                    checkEsGastoFijo.setVisibility(View.GONE);
+                } else {
+                    checkEsGastoFijo.setVisibility(View.VISIBLE);
+                    textViewLinkDeCancelacion.setText("");
+                    url = "";
+                    categoria = "";
+                    desubscripcion = "";
+                    actvMonto.setEnabled(true);
+                    actvMonto.setText(" ");
+                    PRICES.clear();
+                    PRICESNUMBER.clear();
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+        });
+
+        actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1, int pos,
+                                    long id) {
+                cargarCargosList();
+            }
+        });
+
+    }
+
+    private void cargarCargosList() {
+        for (Cargo cargo : cargosList) {
+            if (actv.getText().toString().equals(cargo.nombre)){
+                textViewLinkDeCancelacion.setText(cargo.url);
+                url = cargo.url;
+                categoria = cargo.categoria;
+                desubscripcion = cargo.pasosDesubscripcion;
+                PRICES.clear();
+                PRICESNUMBER.clear();
+                for (Price price: cargo.precios){
+                    String priceType = price.getDescription() + ": $" + price.getAmount();
+                    PRICES.add(priceType);
+                    PRICESNUMBER.add(price.getAmount());
+                }
+                cargarAdapterMonto();
+            }
+        }
+    }
+
+    private void cargarAdapterMonto() {
+        actvMonto.setEnabled(false);
+        ArrayAdapter<String> adapterMonto = new ArrayAdapter<String>(this, dropdown_item, PRICES);
+        actvMonto.setAdapter(adapterMonto);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        rangoVencimiento = paths[position];
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
